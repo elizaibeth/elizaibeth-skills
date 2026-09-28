@@ -1,6 +1,6 @@
 # elizaibeth-skills
 
-My collection of reusable agent skills, organised like [mattpocock/skills](https://github.com/mattpocock/skills).
+Reusable AI agent skills for project setup, development, review, and clear technical writing.
 
 ## Available skills
 
@@ -14,13 +14,17 @@ My collection of reusable agent skills, organised like [mattpocock/skills](https
 
 ## Installation
 
-Install with the [skills CLI](https://github.com/vercel-labs/skills) using Node.js 22.20 or newer:
+Install the skills you want with the [skills CLI](https://github.com/vercel-labs/skills) using Node.js 22.20 or newer:
 
 ```sh
 npx skills add elizaibeth/elizaibeth-skills --skill no-slop --global
+npx skills add elizaibeth/elizaibeth-skills --skill stress-test --global
+npx skills add elizaibeth/elizaibeth-skills --skill big-backend --global
+npx skills add elizaibeth/elizaibeth-skills --skill setup-project --global
+npx skills add elizaibeth/elizaibeth-skills --skill loopy --global
 ```
 
-Replace `no-slop` with another skill name, or use `--skill '*'` for all skills. Omit `--global` for a project-local installation. To install from a local checkout, replace `elizaibeth/elizaibeth-skills` with `.`.
+Use `--skill '*'` to install all skills in one command. Omit `--global` for a project-local installation. To install from a local checkout, replace `elizaibeth/elizaibeth-skills` with `.`.
 
 ## Updates
 
@@ -40,13 +44,29 @@ If you installed the former Claude Code plugin, uninstall it through Claude Code
 
 > Use $setup-project to set up this project.
 
-Applies shared contribution conventions and profiles for Go, Python, Django, Swift/iOS, PHP, Laravel, and frontend projects. Mixed repositories use all matching profiles. For an empty directory, name the stack in your prompt. New frontend projects default to pnpm with a three-day release hold.
+See the [usage guide](skills/setup-project/README.md) for supported stacks, defaults, and examples.
 
-Setup creates a `.context7lib` allowlist for the project's tools. This guides agent queries when Context7 is available; it does not enforce tool access. See the [documentation policy](skills/setup-project/references/context7.md).
+### Loopy
+
+> Use $loopy to implement issues #12 and #15 in this repository.
+
+See the [usage guide](skills/loopy/README.md) for the implementation loop and iteration limits.
 
 ### Big Backend
 
 See the [usage guide](skills/big-backend/README.md) for database, specification, design, and review examples.
+
+### No Slop
+
+> Use $no-slop to rewrite this README in Simplified Technical English. Preserve commands and technical meaning.
+
+> Use $no-slop to write a short PR description for this diff.
+
+### Stress Test
+
+> Use $stress-test on this implementation plan. Check its assumptions and failure modes.
+
+> Use $stress-test to assess whether this change meets the issue's acceptance criteria.
 
 ## Development
 
