@@ -1,0 +1,6 @@
+interface:
+  display_name: "Loopy"
+  short_description: "Implement GitHub issues with TDD and a hard loop breaker"
+  default_prompt: "Use $loopy with these GitHub issues: #... Process them with TDD, happy/sad path coverage, regression tests, simplification, and bounded iterations."
+policy:
+  allow_implicit_invocation: false

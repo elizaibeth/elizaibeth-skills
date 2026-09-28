@@ -1,0 +1,48 @@
+<?php
+declare(strict_types=1);
+
+namespace {{ namespacePrefix }}\Models;
+
+{{ factoryImport }}
+use Illuminate\Database\Eloquent\Model;
+
+class {{ class }} extends Model
+{
+{{ factory }}
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    public $fillable = [
+{{ fillable }}
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+{{ casts }}
+    ];
+
+    /**
+     * The validation rules for the model.
+     *
+     * @var array<string, string>
+     */
+    public static $rules = [
+{{ rules }}
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+{{ hidden }}
+    ];
+}

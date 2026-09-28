@@ -1,0 +1,5 @@
+interface:
+  display_name: "No Slop"
+  short_description: "Use Simplified Technical English to remove AI slop"
+policy:
+  allow_implicit_invocation: true

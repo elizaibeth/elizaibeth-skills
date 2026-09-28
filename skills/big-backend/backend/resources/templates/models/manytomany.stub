@@ -1,0 +1,11 @@
+public function {{belongsToManyFuncName}}(): BelongsToMany
+{
+    return $this->belongsToMany({{RelatedClass}}::class
+        // , '{{pivotTable}}', '{{relatedPivotKey}}', '{{foreignPivotKey}}'
+    )
+        // ->using({{CustomPivotModel}}::class) // optional custom Pivot model
+        // ->as('{{pivotAlias}}')               // alias for pivot access ($model->pivotAlias)
+        // ->withPivot(['{{extraPivotColumn}}'])// additional pivot columns
+        // ->withTimestamps()                   // pivot has created_at/updated_at
+        ;
+}

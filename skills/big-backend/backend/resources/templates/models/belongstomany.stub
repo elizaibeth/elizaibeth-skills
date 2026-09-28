@@ -1,0 +1,6 @@
+// Many-to-Many
+public function {{belongsToManyFuncName}}(): BelongsToMany
+{
+    // Optional explicit table/keys: ->belongsToMany({{RelatedClass}}::class /*, 'pivot_table', 'this_key', 'related_key'*/)
+    return $this->belongsToMany({{RelatedClass}}::class);
+}

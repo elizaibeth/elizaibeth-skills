@@ -1,0 +1,107 @@
+<?php
+declare(strict_types=1);
+
+namespace {{ namespacePrefix }}\Repositories;
+
+use BaseRepositoryInterface;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+
+abstract class BaseRepository implements BaseRepositoryInterface
+{
+    protected Model $model;
+    protected bool $includeTrashed = false;
+
+    /** Child returns the model instance (or you can inject via ctor) */
+    abstract protected function modelInstance(): Model;
+
+    /** Keys allowed in allQuery’s filter */
+    abstract public function getFieldsSearchable(): array;
+
+    public function __construct()
+    {
+        $this->model = $this->modelInstance();
+    }
+
+    protected function newQuery(): Builder
+    {
+        $q = $this->model->newQuery();
+        if ($this->includeTrashed && method_exists($this->model, 'bootSoftDeletes')) {
+            $q->withTrashed();
+        }
+        return $q;
+    }
+
+    public function withTrashed(bool $on = true): static
+    {
+        $this->includeTrashed = $on;
+        return $this;
+    }
+
+    public function paginate(int $perPage, array $columns = ['*'], array $search = []): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return $this->allQuery($search)->paginate($perPage, $columns);
+    }
+
+    protected function allQuery(array $search = [], ?int $skip = null, ?int $limit = null): Builder
+    {
+        $query = $this->newQuery();
+
+        if ($search) {
+            $allowed = $this->getFieldsSearchable();
+            foreach ($search as $key => $value) {
+                if (in_array($key, $allowed, true)) {
+                    $query->where($key, $value);
+                }
+            }
+        }
+
+        if ($skip !== null) $query->skip($skip);
+        if ($limit !== null) $query->limit($limit);
+
+        return $query;
+    }
+
+    /** @return Collection<int, Model> */
+    public function all(array $search = [], ?int $skip = null, ?int $limit = null, array $columns = ['*']): Collection
+    {
+        return $this->allQuery($search, $skip, $limit)->get($columns);
+    }
+
+    public function create(array $input): Model
+    {
+        $model = $this->model->newInstance($input);
+        $model->save();
+        return $model;
+    }
+
+    public function find(int $id, array $columns = ['*']): ?Model
+    {
+        return $this->newQuery()->find($id, $columns);
+    }
+
+    public function update(array $input, int $id): Model
+    {
+        $model = $this->newQuery()->findOrFail($id);
+        $model->fill($input)->save();
+        return $model;
+    }
+
+    public function delete(int $id): bool
+    {
+        $model = $this->newQuery()->findOrFail($id);
+        return (bool) $model->delete();
+    }
+
+    public function forceDelete(int $id): bool
+    {
+        $q = $this->newQuery();
+        if (method_exists($this->model, 'bootSoftDeletes')) {
+            $q->withTrashed();
+        }
+        $model = $q->findOrFail($id);
+        return (bool) $model->forceDelete();
+    }
+}

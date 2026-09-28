@@ -1,0 +1,41 @@
+<?php
+declare(strict_types=1);
+
+namespace {{ namespacePrefix }}\Policies;
+
+use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
+
+trait CommonPolicyChecks {
+
+    /**
+     * Determine whether the user is the owner of the model
+     */
+    public function checkIfOwner(User $user, Model $model, $message = "You cannot perform this action")
+    {
+        if ($model->user_id === $user->id) {
+            //this item belongs to the this user
+            return Response::allow();
+        } else {
+            return Response::deny($message);
+        }
+    }
+
+    /**
+     * Determine whether the user is an admin
+     */
+    public function checkIfSuperAmin(User $user, Model $model, $message = "You cannot perform this action")
+    {
+        return Response::deny(); //todo
+    }
+
+
+    /**
+     * Determine whether the user is on the same team
+     */
+    public function checkIfSameTeam(User $user, Model $model, $message = "You cannot perform this action")
+    {
+        return Response::deny(); //todo
+    }
+}

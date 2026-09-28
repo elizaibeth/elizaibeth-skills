@@ -1,0 +1,35 @@
+<?php
+declare(strict_types=1);
+
+namespace {{ namespacePrefix }}\Repositories;
+
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @template TModel of \Illuminate\Database\Eloquent\Model
+ */
+interface BaseRepositoryInterface
+{
+    /** @return TModel|null */
+    public function find(int $id, array $columns = ['*']): ?Model;
+
+    /** @return Collection<int, TModel> */
+    public function all(array $search = [], ?int $skip = null, ?int $limit = null, array $columns = ['*']): Collection;
+
+    public function paginate(int $perPage, array $columns = ['*'], array $search = []): LengthAwarePaginator;
+
+    /** @return TModel */
+    public function create(array $input): Model;
+
+    /** @return TModel */
+    public function update(array $input, int $id): Model;
+
+    public function delete(int $id): bool;
+
+    public function forceDelete(int $id): bool;
+
+    /** Turn on/off SoftDeletes scope for subsequent calls (optional) */
+    public function withTrashed(bool $on = true): static;
+}

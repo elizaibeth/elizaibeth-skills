@@ -1,0 +1,6 @@
+// Parent -> Child
+public function {{hasOneFuncName}}(): HasOne
+{
+    // Optional explicit keys: ->hasOne({{RelatedClass}}::class, '{{foreignKey}}', '{{localKey}}')
+    return $this->hasOne({{RelatedClass}}::class);
+}

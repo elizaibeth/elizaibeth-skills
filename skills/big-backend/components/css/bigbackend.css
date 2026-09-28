@@ -1,0 +1,102 @@
+@layer theme, base, components, utilities;
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@import "./foundation.css" layer(base);
+@import "./components/index.css" layer(components);
+
+@import "tailwindcss";
+
+@import "highlight.js/styles/atom-one-dark.css" layer(components); /* Just for demo purpose only for highlighting code */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans: "Plus Jakarta Sans", Inter, ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-inter: Inter, ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    --color-graphite-50: #f4f7f6;
+    --color-graphite-100: #dde5e3;
+    --color-graphite-200: #bdcbc8;
+    --color-graphite-300: #869b97;
+    --color-graphite-400: #637773;
+    --color-graphite-450: #4d605c;
+    --color-graphite-500: #3c4d49;
+    --color-graphite-600: #2e3d3a;
+    --color-graphite-700: #263330;
+    --color-graphite-750: #22302d;
+    --color-graphite-800: #202b29;
+    --color-graphite-900: #17211f;
+
+    --color-slate-150: #e8efed;
+
+    --color-brand: #0f766e;
+    --color-brand-strong: #115e59;
+    --color-coral-soft: #f4a261;
+    --color-coral: #e76f51;
+    --color-coral-strong: #c2412d;
+    --color-signal-soft: #5eead4;
+    --color-signal: #14b8a6;
+    --color-signal-strong: #0f766e;
+    --color-info: #0ea5e9;
+    --color-info-focus: #0284c7;
+    --color-success: #10b981;
+    --color-success-focus: #059669;
+    --color-warning: #ff9800;
+    --color-warning-focus: #e68200;
+    --color-error: #ff5724;
+    --color-error-focus: #f03000;
+
+    --shadow-soft: 0 12px 32px -16px rgb(15 118 110 / 24%);
+    --shadow-soft-dark: 0 18px 40px -18px rgb(0 0 0 / 55%);
+
+    --text-tiny: 0.625rem;
+    --text-tiny--line-height: 0.8125rem;
+
+    --text-tiny-plus: 0.6875rem;
+    --text-tiny-plus--line-height: 0.875rem;
+
+    --text-xs-plus: 0.8125rem;
+    --text-xs-plus--line-height: 1.125rem;
+
+    --text-sm-plus: 0.9375rem;
+    --text-sm-plus--line-height: 1.375rem;
+
+    --animate-shimmer: shimmer 2s linear infinite;
+
+    @keyframes shimmer {
+        from {
+            background-position: 0 0;
+        }
+        to {
+            background-position: -200% 0;
+        }
+    }
+}
+
+@layer base {
+    @keyframes fade-out {
+        0% {
+            opacity: 1;
+            visibility: visible;
+        }
+        100% {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}

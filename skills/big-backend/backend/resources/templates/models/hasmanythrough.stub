@@ -1,0 +1,5 @@
+// Has-many-through
+public function {{hasManyThroughFuncName}}(): HasManyThrough
+{
+    return $this->hasManyThrough({{FinalClass}}::class, {{ThroughClass}}::class);
+}

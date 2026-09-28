@@ -1,0 +1,23 @@
+<?php
+declare(strict_types=1);
+
+namespace {{ namespacePrefix }}\Repositories;
+use {{ namespacePrefix }}\Models\{{modelName}};
+
+final class {{repositoryClassName}} extends BaseRepository implements {{interfaceClassName}}
+{
+    protected array $fieldSearchable = [
+        // Define the fields that are searchable in the repository
+        {{searchableFields}}
+        ];
+
+    public function getFieldsSearchable(): array
+    {
+        return $this->fieldSearchable;
+    }
+
+    protected function modelInstance(): {{modelName}}
+    {
+        return new {{modelName}}();
+    }
+}

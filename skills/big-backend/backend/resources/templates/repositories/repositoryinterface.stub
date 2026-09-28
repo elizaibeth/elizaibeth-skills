@@ -1,0 +1,9 @@
+<?php
+declare(strict_types=1);
+
+namespace {{ namespacePrefix }}\Repositories;
+
+use {{ namespacePrefix }}\Models\{{ModelName}};
+
+/** @extends BaseRepositoryInterface<{{ModelName}}> */
+interface {{interfaceClassName}} extends BaseRepositoryInterface {}

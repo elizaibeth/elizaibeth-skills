@@ -1,0 +1,5 @@
+interface:
+  display_name: "Stress Test"
+  short_description: "Challenge claims with evidence and realistic counterexamples as a massive skeptical critic"
+policy:
+  allow_implicit_invocation: true

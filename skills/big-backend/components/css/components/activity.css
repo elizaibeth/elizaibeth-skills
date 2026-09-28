@@ -1,0 +1,35 @@
+.bb-activity {
+    @apply flex flex-col [--size:12px] [--line:1px];
+}
+
+.bb-activity.line-space {
+    --space: 12px;
+}
+
+.bb-activity .bb-activity-item {
+    @apply relative flex flex-1 pb-8;
+}
+
+.bb-activity .bb-activity-item .bb-activity-item-point {
+    @apply relative m-0 flex h-[var(--size)] w-[var(--size)] shrink-0 items-center justify-center;
+}
+
+.bb-activity .bb-activity-item::before {
+    @apply absolute inset-0 order-[-1] w-[var(--line)] translate-x-[calc((var(--size)/2)-(var(--line)/2))] content-[''];
+}
+
+.bb-activity .bb-activity-item:not(:last-child) {
+    @apply before:bg-slate-300 dark:before:bg-graphite-400;
+}
+
+.bb-activity .bb-activity-item:last-child {
+    @apply before:bg-linear-to-b before:from-slate-300 before:to-transparent dark:before:from-graphite-400;
+}
+
+.bb-activity .bb-activity-item:last-child {
+    @apply pb-0;
+}
+
+.bb-activity.line-space .bb-activity-item::before {
+    @apply top-[calc(var(--size)+var(--space))] bottom-[var(--space)];
+}

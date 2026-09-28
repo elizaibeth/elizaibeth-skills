@@ -1,0 +1,5 @@
+// Pick the "latest" related row (by created_at)
+public function {{latestOfManyFuncName}}(): HasOne
+{
+    return $this->hasOne({{RelatedClass}}::class)->latestOfMany();
+}

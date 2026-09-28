@@ -1,0 +1,5 @@
+// Pick the "oldest" related row
+public function {{oldestOfManyFuncName}}(): HasOne
+{
+    return $this->hasOne({{RelatedClass}}::class)->oldestOfMany();
+}

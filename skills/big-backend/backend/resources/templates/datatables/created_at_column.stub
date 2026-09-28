@@ -1,0 +1,8 @@
+            'created_at'=> ['title'=>'Created', 'defaultContent'=>'', 'name'=>'created_at','data'=>'created_at',
+                    'visible'=>false, 'render' =>
+                    function () {
+                        return 'function(data, type, full, meta)
+                        {
+                            return moment(data).format("lll");
+                        }';
+            }],

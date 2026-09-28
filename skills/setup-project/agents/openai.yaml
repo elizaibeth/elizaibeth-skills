@@ -1,0 +1,6 @@
+interface:
+  display_name: "Setup Project"
+  short_description: "Set up conventions, language tooling, tests, and hooks"
+  default_prompt: "Use $setup-project to apply repository conventions and set up tooling for this project's languages and frameworks."
+policy:
+  allow_implicit_invocation: false

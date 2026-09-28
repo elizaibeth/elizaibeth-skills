@@ -1,0 +1,44 @@
+.bb-stepper {
+  @apply flex items-baseline [--size:2rem] [--line:0.25rem];
+}
+
+.bb-stepper.line-space {
+  --space: 0.5rem;
+}
+
+.bb-stepper .step {
+  @apply flex flex-1 flex-col break-words text-center font-inter tracking-wide;
+}
+
+.bb-stepper .step .step-header {
+  @apply relative m-auto mb-2 flex h-[var(--size)] w-[var(--size)] shrink-0 items-center justify-center;
+}
+
+.bb-stepper .step:not(:last-child)::before {
+  @apply relative left-[50%] top-[calc(var(--size)/2+var(--line)/2)] order-[-1] h-[var(--line)] rounded-full content-[''];
+}
+
+.bb-stepper.line-space .step:not(:last-child)::before {
+  width: calc(100% - var(--size) - calc(var(--space) * 2));
+  left: calc(50% + calc(var(--size) / 2 + var(--space)));
+}
+
+.bb-stepper.is-vertical {
+  @apply flex-col;
+}
+
+.bb-stepper.is-vertical .step {
+  @apply relative flex-row;
+}
+
+.bb-stepper.is-vertical .step .step-header {
+  @apply z-1 m-0;
+}
+
+.bb-stepper.is-vertical .step:not(:last-child)::before {
+  @apply absolute inset-0 h-auto w-[var(--line)] translate-x-[calc((var(--size)/2)-(var(--line)/2))];
+}
+
+.bb-stepper.is-vertical.line-space .step:not(:last-child)::before {
+  @apply top-[calc(var(--size)+var(--space))] bottom-[var(--space)];
+}

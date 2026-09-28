@@ -1,0 +1,6 @@
+// Parent -> Children
+public function {{hasManyFuncName}}(): HasMany
+{
+    // Optional explicit keys: ->hasMany({{RelatedClass}}::class, '{{foreignKey}}', '{{localKey}}')
+    return $this->hasMany({{RelatedClass}}::class);
+}

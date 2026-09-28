@@ -1,0 +1,8 @@
+            'updated_at'=> ['title'=>'Updated', 'defaultContent'=>'', 'name'=>'updated_at','data'=>'updated_at',
+                'render' =>
+                    function () {
+                        return 'function(data, type, full, meta)
+                        {
+                            return moment(data).format("lll");
+                        }';
+                }],

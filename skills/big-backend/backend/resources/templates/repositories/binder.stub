@@ -1,0 +1,4 @@
+$this->app->bind(
+    {{interfaceName}}::class,
+    {{repositoryName}}::class
+);

@@ -1,0 +1,6 @@
+// Pick by aggregate on a column (e.g., max price, min score)
+public function {{ofManyFuncName}}(): HasOne
+{
+    return $this->hasOne({{RelatedClass}}::class)
+        ->ofMany('{{aggregateColumn}}', '{{aggregateFunc}}'); // e.g., 'price', 'max'
+}

@@ -1,0 +1,8 @@
+{
+  "name": "elizaibeth-skills",
+  "version": "0.0.0",
+  "description": "Elizaibeth's reusable agent skills for clear writing, critical review, project setup, conventions, bounded implementation and Laravel development.",
+  "author": { "name": "Elizaibeth" },
+  "license": "MIT",
+  "keywords": ["skills", "writing", "critique", "project-setup", "conventions", "implementation", "tdd", "go", "python", "django", "swift", "php", "laravel", "crud"]
+}

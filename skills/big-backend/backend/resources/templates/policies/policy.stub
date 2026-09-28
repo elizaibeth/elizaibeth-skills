@@ -1,0 +1,115 @@
+<?php
+declare(strict_types=1);
+
+namespace {{ namespacePrefix }}\Policies;
+
+use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Auth\Access\Response;
+
+class {{ class }} implements PolicyInterface
+{
+    use HandlesAuthorization;
+    use CommonPolicyChecks;
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  User $user
+     * @return mixed
+     */
+    public function viewAny(User $user): Response
+    {
+        {{defaultViewAny}}
+    }
+
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param User $user
+     * @param Model $model
+     * @return mixed
+     */
+
+    public function view(User $user, Model $model, $message = 'You cannot perform this action.'): Response
+    {
+        {{checkOwnerView}}
+        {{checkTeamView}}
+        {{checkSuperAdminView}}
+        {{defaultView}}
+    }
+
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function create(User $user): Response
+    {
+        {{defaultCreate}}
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param User $user
+     * @param Model $model
+     * @return mixed
+     */
+    public function update(User $user, Model $model, $message = 'You cannot perform this action.'): Response
+    {
+        {{checkOwnerUpdate}}
+        {{checkTeamUpdate}}
+        {{checkSuperAdminUpdate}}
+        {{defaultUpdate}}
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     *
+     * @param User $user
+     * @param Model $model
+     * @return mixed
+     */
+    public function delete(User $user, Model $model, $message = 'You cannot perform this action.'): Response
+    {
+        {{checkOwnerDelete}}
+        {{checkTeamDelete}}
+        {{checkSuperAdminDelete}}
+        {{defaultDelete}}
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @param User $user
+     * @param Model $model
+     * @return mixed
+     */
+    public function restore(User $user, Model $model, $message = 'You cannot perform this action.'): Response
+    {
+        {{checkOwnerRestore}}
+        {{checkTeamRestore}}
+        {{checkSuperAdminRestore}}
+        {{defaultRestore}}
+    }
+
+    /**
+     * Determine whether the user can forceDelete the model.
+     *
+     * @param User $user
+     * @param Model $model
+     * @return mixed
+     */
+    public function forceDelete(User $user, Model $model, $message = 'You cannot perform this action.'): Response
+    {
+        {{checkOwnerForceDelete}}
+        {{checkTeamForceDelete}}
+        {{checkSuperAdminForceDelete}}
+        {{defaultForceDelete}}
+    }
+
+}

@@ -1,0 +1,6 @@
+// Child -> Parent (inverse)
+public function {{belongsToFuncName}}(): BelongsTo
+{
+    // Optional explicit keys: ->belongsTo({{RelatedClass}}::class, '{{foreignKey}}', '{{ownerKey}}')
+    return $this->belongsTo({{RelatedClass}}::class);
+}

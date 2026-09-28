@@ -1,0 +1,6 @@
+interface:
+  display_name: "BigBackend for Laravel 13"
+  short_description: "Build and review Laravel 13 CRUD backends"
+  default_prompt: "Use $big-backend to build a Laravel 13 CRUD backend from my existing database, specification, or system description, starting with migrations and adapting the bundled backend and UI reference patterns."
+policy:
+  allow_implicit_invocation: true

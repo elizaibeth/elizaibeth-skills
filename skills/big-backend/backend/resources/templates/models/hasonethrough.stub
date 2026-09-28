@@ -1,0 +1,5 @@
+// Has-one-through
+public function {{hasOneThroughFuncName}}(): HasOneThrough
+{
+    return $this->through('{{throughRelation}}')->has('{{finalRelation}}');
+}

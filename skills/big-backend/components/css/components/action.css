@@ -1,0 +1,6 @@
+.bb-action {
+  @apply inline-flex cursor-pointer items-center justify-center rounded-xl px-5 py-2
+   text-center font-medium tracking-wide outline-hidden transition-all duration-150
+   hover:-translate-y-px focus:outline-hidden focus-visible:ring-3 focus-visible:ring-brand/25
+   active:translate-y-0 disabled:pointer-events-none disabled:translate-y-0;
+}

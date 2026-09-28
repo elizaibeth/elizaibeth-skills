@@ -1,0 +1,36 @@
+.bb-meter {
+  @apply relative flex w-full overflow-hidden rounded-full;
+}
+
+.bb-meter .is-indeterminate {
+  animation: bb-meter-flow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.bb-meter .is-active::before {
+  @apply absolute inset-0 rounded-sm bg-white content-[''];
+  animation: bb-meter-pulse 2s cubic-bezier(0.55, 0.2, 0.3, 0.67) infinite;
+}
+
+@keyframes bb-meter-flow {
+  from {
+    left: -5%;
+    width: 5%;
+  }
+  to {
+    left: 125%;
+    width: 100%;
+  }
+}
+
+@keyframes bb-meter-pulse {
+  0% {
+    opacity: 0.4;
+    transform: translateX(-100%);
+  }
+  90% {
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}

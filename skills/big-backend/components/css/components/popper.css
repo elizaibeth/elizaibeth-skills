@@ -1,0 +1,68 @@
+.bb-popover {
+    @apply invisible z-1000;
+}
+
+.bb-popover.show {
+    @apply visible;
+}
+
+.bb-popover > .popper-box {
+    @apply opacity-0 duration-200 ease-out text-slate-500 dark:text-graphite-200;
+    transition-property: transform, visibility, opacity, translate;
+}
+
+.bb-popover[data-popper-placement^="right"] > .popper-box {
+    @apply translate-x-3;
+}
+
+.bb-popover[data-popper-placement^="bottom"] > .popper-box {
+    @apply translate-y-3;
+}
+
+.bb-popover[data-popper-placement^="top"] > .popper-box {
+    @apply -translate-y-3;
+}
+
+.bb-popover[data-popper-placement^="left"] > .popper-box {
+    @apply -translate-x-3;
+}
+
+.bb-popover[data-popper-placement^="top"] [data-popper-arrow] {
+    @apply bottom-1;
+}
+
+.bb-popover[data-popper-placement^="top"] [data-popper-arrow] > svg {
+    @apply top-3.5 rotate-180;
+}
+
+.bb-popover[data-popper-placement^="bottom"] [data-popper-arrow] {
+    @apply top-1;
+}
+
+.bb-popover[data-popper-placement^="bottom"] [data-popper-arrow] > svg {
+    @apply bottom-3.5;
+}
+
+.bb-popover[data-popper-placement^="left"] [data-popper-arrow] {
+    @apply right-0.5;
+}
+
+.bb-popover[data-popper-placement^="left"] [data-popper-arrow] svg {
+    transform: rotate(90deg);
+    top: calc(50% - 5px);
+    left: 13px;
+}
+
+.bb-popover[data-popper-placement^="right"] [data-popper-arrow] {
+    @apply left-0.5;
+}
+
+.bb-popover[data-popper-placement^="right"] [data-popper-arrow] svg {
+    transform: rotate(-90deg);
+    top: calc(50% - 5px);
+    right: 13px;
+}
+
+.bb-popover.show > .popper-box {
+    @apply opacity-100 ease-in translate-x-0 translate-y-0;
+}
