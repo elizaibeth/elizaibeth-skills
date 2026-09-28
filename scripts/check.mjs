@@ -6,15 +6,7 @@ const root = new URL("../", import.meta.url);
 const read = (path) => readFileSync(new URL(path, root), "utf8");
 const json = (path) => JSON.parse(read(path));
 const pkg = json("package.json");
-const plugin = json(".claude-plugin/plugin.json");
-const marketplace = json(".claude-plugin/marketplace.json");
 assert.equal(pkg.private, true, "The collection must remain private on npm");
-assert.equal(plugin.name, pkg.name, "Plugin and package names must match");
-assert.equal(marketplace.plugins.length, 1, "The marketplace ships one collection");
-assert.equal(marketplace.plugins[0].name, plugin.name);
-assert.equal(marketplace.plugins[0].source, "./");
-assert.equal(json("package-lock.json").version, pkg.version, "Lockfile version is stale");
-assert.equal(json("package-lock.json").packages[""].version, pkg.version);
 
 const skills = readdirSync(new URL("skills/", root), { withFileTypes: true })
   .filter((entry) => entry.isDirectory());
@@ -32,4 +24,4 @@ for (const { name } of skills) {
   assert.ok(match[2].trim(), `${path}: instructions are required`);
   assert.ok(read("README.md").includes(`skills/${name}/SKILL.md`), `${path}: add the skill to README.md`);
 }
-console.log(`Validated packaging and ${skills.length} skill(s).`);
+console.log(`Validated ${skills.length} skill(s).`);

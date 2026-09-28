@@ -1,22 +1,13 @@
 {
   "name": "elizaibeth-skills",
-  "version": "0.0.0",
   "private": true,
   "description": "Elizaibeth's reusable agent skills",
   "license": "MIT",
   "engines": { "node": ">=22" },
   "scripts": {
-    "changeset": "changeset",
-    "version": "changeset version && node scripts/sync-plugin-version.mjs && npm install --package-lock-only --ignore-scripts && npm run check",
-    "check": "node scripts/check.mjs && node scripts/sync-plugin-version.mjs --check",
-    "check-plugin-version": "node scripts/sync-plugin-version.mjs --check",
-    "release": "changeset tag"
+    "check": "node scripts/check.mjs"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.30.0",
     "yaml": "^2.8.1"
-  },
-  "overrides": {
-    "human-id": "0.0.1"
   }
 }

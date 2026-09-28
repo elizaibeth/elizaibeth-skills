@@ -4,13 +4,13 @@ Build Laravel 13 CRUD backends and admin interfaces from a database, specificati
 
 ## Install
 
-From the collection root:
+Install from GitHub with Node.js 22.20 or newer:
 
 ```sh
-npx skills add . --skill big-backend
+npx skills add elizaibeth/elizaibeth-skills --skill big-backend --global
 ```
 
-Add `--global` for use across projects. For local development, you can instead copy or symlink the complete skill folder to `~/.agents/skills/big-backend`. Choose one installation method to avoid duplicates.
+Omit `--global` for project-local use. For local development, replace the repository name with `.` from the collection root, or symlink the complete skill folder to `~/.agents/skills/big-backend`. Choose one installation method to avoid duplicates.
 
 ## Use
 
@@ -54,7 +54,7 @@ Builds proceed through migrations, models, validation, authorization, routes, sc
 
 ## Maintenance
 
-Keep `backend/`, `components/`, `references/` and `agents/` with `SKILL.md`. Installed use must not depend on the collection's root documentation or development tools. Maintain the source in `skills/big-backend/` under the collection's contribution and release rules.
+Keep `backend/`, `components/`, `references/` and `agents/` with `SKILL.md`. Installed use must not depend on the collection's root documentation or development tools. Maintain the source in `skills/big-backend/`.
 
 ## License
 

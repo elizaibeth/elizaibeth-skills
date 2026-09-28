@@ -14,30 +14,25 @@ My collection of reusable agent skills, organised like [mattpocock/skills](https
 
 ## Installation
 
-From the repository root, install a skill with the [skills CLI](https://github.com/vercel-labs/skills):
+Install with the [skills CLI](https://github.com/vercel-labs/skills) using Node.js 22.20 or newer:
 
 ```sh
-npx skills add . --skill <skill-name>
+npx skills add elizaibeth/elizaibeth-skills --skill no-slop --global
 ```
 
-Add `--global` to make it available across projects. For example:
+Replace `no-slop` with another skill name, or use `--skill '*'` for all skills. Omit `--global` for a project-local installation. To install from a local checkout, replace `elizaibeth/elizaibeth-skills` with `.`.
+
+## Updates
+
+Update all globally installed skills:
 
 ```sh
-npx skills add . --skill no-slop --global
+npx skills update --global
 ```
 
-Once hosted on GitHub, replace `.` with `OWNER/REPO` to install remotely.
+For tracked GitHub installs, the CLI skips unchanged skill folders. Updates follow the installed source branch or ref, not numbered skill releases. Project-local updates use `--project` and currently refresh unchanged skills too. See the [CLI documentation](https://github.com/vercel-labs/skills#skills-update).
 
-### Claude Code plugin
-
-From this repository's directory, run these commands inside Claude Code:
-
-```text
-/plugin marketplace add .
-/plugin install elizaibeth-skills@elizaibeth-skills
-```
-
-Choose either the plugin or the skills CLI installation to avoid duplicate skills.
+If you installed the former Claude Code plugin, uninstall it through Claude Code before using this method to avoid duplicate skills.
 
 ## Usage
 
@@ -53,19 +48,18 @@ Setup creates a `.context7lib` allowlist for the project's tools. This guides ag
 
 See the [usage guide](skills/big-backend/README.md) for database, specification, design, and review examples.
 
-## Development and releases
+## Development
 
 Use Node.js 22 or newer:
 
 ```sh
 npm ci
 npm run check
-npm run changeset
 ```
 
 Each skill lives in `skills/<skill-name>/`, with instructions in `SKILL.md` and supporting files alongside it. Add new skills to the table above.
 
-Add a Changeset for user-visible skill or packaging changes. See the [release guide](docs/releases.md) for versioning and GitHub automation. npm is used for development tooling, not publication.
+Work on `develop`; merge verified changes to `main` for stable use and make `main` the GitHub default branch. CI runs on both branches and pull requests. Git history records changes; no Changesets or version bumps are needed. npm supplies validation tooling only; nothing is published to npm.
 
 ## License
 
