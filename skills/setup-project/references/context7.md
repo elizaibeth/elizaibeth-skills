@@ -14,7 +14,7 @@ Unknown libraries use official documentation. Expanding the catalog or adding a 
 
 ## Persist the usage rule
 
-Add this rule to the target's existing agent instructions, adapting its wording without duplicating existing policy:
+Add this rule to the target's root `AGENTS.md`, adapting its wording without duplicating existing policy:
 
 > When Context7 is available, query documentation only for exact IDs listed in `.context7lib`. Match documentation to installed versions. During planning, check API capabilities or constraints that affect the approach. During implementation, verify uncertain signatures, configuration, and behavior. During review, verify library-dependent findings against relevant documentation. Reuse evidence already gathered for the same version and question. For an unlisted library or unavailable service, use installed sources or official documentation and report unresolved uncertainty. Do not automatically add IDs, substitute another ID, or treat a library's presence on the list as approval to install it.
 

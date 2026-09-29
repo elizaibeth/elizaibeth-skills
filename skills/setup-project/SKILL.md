@@ -29,7 +29,7 @@ Read [Context7 policy](references/context7.md) and generate `.context7lib` from 
 
 ## Configure and verify
 
-1. Apply contribution conventions and templates on every run. Already compliant files need no edits.
+1. Apply contribution conventions and templates on every run. Create or update root `AGENTS.md` with the shared writing and implementation rules; make `CLAUDE.md` contain only `@AGENTS.md`. Already compliant files need no edits.
 2. Configure the selected profiles' package commands, formatting, linting, tests, coverage, and audits. Use existing tools before adding alternatives; verify version-dependent commands against installed help or official documentation. Keep dependencies in the chosen manager's manifests and lockfiles; avoid unrelated upgrades.
 3. Merge pre-commit hygiene and secret scanning with the language checks. Pin hook revisions, install hooks in the target clone, and document tool prerequisites. Keep slow suites and audits available as explicit commands. When CI is requested, use the same locked environment and checks there.
 4. Run the configured checks and record coverage. Exercise meaningful happy, failure, and boundary paths; a percentage alone proves none of these. Preserve existing thresholds; add new thresholds only when requested. Ignore generated reports. Mark unavailable checks unverified and report an empty test suite honestly.

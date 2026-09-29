@@ -22,6 +22,8 @@ Omit `--global` to install in one project.
 
 Every run applies shared commit, PR, and issue conventions, including no agent co-author trailers or generated-by signatures. It then applies all matching profiles: Go, Python, Django, Swift/iOS, PHP, Laravel, and frontend dependencies. Name the stack when starting in an empty directory.
 
+Setup creates or updates `AGENTS.md` with Simplified Technical English principles and the required cycle: plan → implement with TDD → quick code review → simplify → code review. `CLAUDE.md` contains only `@AGENTS.md`. Existing project instructions are merged into `AGENTS.md`; the rules need no separate skills installed.
+
 New Python and Django projects default to **uv**. New frontend projects default to **pnpm** with a three-day release hold. Existing package managers and working configuration are preserved unless you request a migration.
 
 Setup creates a `.context7lib` allowlist for the project's tools. This guides agent queries when Context7 is available; it does not enforce tool access. See the [documentation policy](references/context7.md).
