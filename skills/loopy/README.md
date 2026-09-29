@@ -20,6 +20,8 @@ Run from the target repository. Replace the issue numbers with your own. The age
 
 Loopy reads the issues and plans the work, then proceeds without waiting for plan approval. It tests happy and failure paths, keeps code concise, and checks the final diff against the requirements.
 
+It uses `tdd`, `simplify`, and `code-review` when available, with built-in fallback instructions. Skill use does not reset or bypass iteration limits.
+
 ## Limits
 
 The defaults are **3 iterations per issue** and **10 per run**. Explicit limits can raise these to **5 per issue** and **20 per run**, but cannot disable the breaker.

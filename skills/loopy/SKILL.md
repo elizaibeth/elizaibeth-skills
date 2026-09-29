@@ -15,6 +15,8 @@ Before editing, write a compact internal plan: issue order, one or more vertical
 
 ## Run the loop
 
+Read and use available skills at the matching stage: `tdd` for Red/Green, `simplify` for Simplify, and `code-review` for Review and the final review. If a skill is unavailable, follow the steps below; do not install it automatically. Supply review skills with the issue requirements, baseline, and current diff, including uncommitted changes. Loopy's stage order, scope, approval boundaries, and breaker still apply; corrections and retries inside another skill count toward the same limits.
+
 For each vertical slice, complete every stage in order:
 
 1. **Red:** add or update behavior tests for the happy path and relevant invalid, denied, missing, or boundary path. Run them and confirm they fail for the intended reason before implementing.

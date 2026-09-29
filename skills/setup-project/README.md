@@ -22,7 +22,7 @@ Omit `--global` to install in one project.
 
 Every run applies shared commit, PR, and issue conventions, including no agent co-author trailers or generated-by signatures. It then applies all matching profiles: Go, Python, Django, Swift/iOS, PHP, Laravel, and frontend dependencies. Name the stack when starting in an empty directory.
 
-Setup creates or updates `AGENTS.md` with Simplified Technical English principles and the required cycle: plan → implement with TDD → quick code review → simplify → code review. `CLAUDE.md` contains only `@AGENTS.md`. Existing project instructions are merged into `AGENTS.md`; the rules need no separate skills installed.
+Setup creates or updates `AGENTS.md` with Simplified Technical English principles and the required cycle: plan → implement with TDD → quick code review → simplify → code review. It directs agents to use `tdd`, `code-review`, and `simplify` when available, with built-in fallback instructions. `CLAUDE.md` contains only `@AGENTS.md`. Existing project instructions are merged into `AGENTS.md`.
 
 New Python and Django projects default to **uv**. New frontend projects default to **pnpm** with a three-day release hold. Existing package managers and working configuration are preserved unless you request a migration.
 

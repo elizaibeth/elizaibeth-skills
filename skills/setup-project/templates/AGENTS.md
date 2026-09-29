@@ -8,6 +8,8 @@ Use Simplified Technical English principles in replies, documentation, and comme
 
 ## Implementation cycle
 
+Read and use available skills at the matching stage: `tdd` for implementation, `code-review` for both reviews, and `simplify` for simplification. If a skill is unavailable, follow the steps below; do not install it automatically. Keep this cycle's order, scope, and approval boundaries. Supply review skills with the requirements, baseline, and current diff, including uncommitted changes.
+
 Follow this order for every implementation task:
 
 1. **Plan:** read the requirements and relevant code. Define a small change, acceptance criteria, and checks. Proceed within the agreed scope without a routine approval pause.
