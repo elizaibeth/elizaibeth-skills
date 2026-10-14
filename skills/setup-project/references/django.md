@@ -2,6 +2,8 @@
 
 Apply the Python profile, the [development environment](dev-environment.md), and the [test environment](test-environment.md) first. Inspect settings modules, apps, migrations, and database configuration. Preserve app boundaries and migration history. Run deployment checks only when deployment settings are in scope.
 
+Read [design style](django-style.md) and add its `## Django design` rules to `AGENTS.md`.
+
 ## New projects
 
 Create the project with `django-admin startproject config .`. Split settings into `config/settings/` modules: `base`, `dev`, `test`, `e2e` when needed, and `prod`. Read `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, and database and storage settings from the environment; list their names in `.env.example`.

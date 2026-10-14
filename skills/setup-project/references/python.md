@@ -2,6 +2,8 @@
 
 Configure Ruff to match the supported Python version, the existing runner or pytest, and mypy or the existing type checker. Scope typing and exclusions to the actual packages. Run pip-audit or the existing dependency audit against the project's locked dependencies. Local hooks must use the project environment so installed libraries and stubs are visible.
 
+For non-Django projects, read [design style](python-style.md) and add its `## Python design` rules to `AGENTS.md`. Django projects use [Django design style](django-style.md) instead.
+
 ## Package manager
 
 Default to **uv** for new Python projects, including Django, unless the user specifies another manager. Use `pyproject.toml` and commit `uv.lock`; keep `.venv` ignored and align `.python-version` with the supported Python range. Use a `src/` layout for new packages (`uv init --package`).

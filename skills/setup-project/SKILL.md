@@ -16,8 +16,8 @@ Always read and apply [conventions](references/conventions.md), then load every 
 | Project | Read |
 | --- | --- |
 | Go | [Go](references/go.md) |
-| Python | [Python](references/python.md) |
-| Django | [Python](references/python.md) + [Django](references/django.md) |
+| Python, not Django | [Python](references/python.md) + [Python design style](references/python-style.md) |
+| Django | [Python](references/python.md) + [Django](references/django.md) + [Django design style](references/django-style.md) |
 | Swift/iOS | [Swift](references/swift.md) |
 | PHP | [PHP](references/php.md) |
 | Laravel | [PHP](references/php.md) + [Laravel](references/laravel.md) |
