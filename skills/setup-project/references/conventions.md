@@ -11,7 +11,13 @@ Apply these on every setup run. Inspect contribution files, agent instructions, 
 - Reviews: location, concrete problem, effect, and suggested correction. Omit generic praise and stylistic objections already handled by tools.
 - Changelogs: user-visible impact, following existing release tooling.
 
-Merge [CONTRIBUTING.md](../templates/CONTRIBUTING.md) into the target contribution guide, replacing generic verification guidance with actual project commands after tooling setup. Keep contribution policy there and link it from `AGENTS.md`.
+Merge [CONTRIBUTING.md](../templates/CONTRIBUTING.md) into the target contribution guide, replacing generic verification guidance with actual project commands after tooling setup. Keep contribution policy there. In `AGENTS.md`, add the template's Contributing section with the guide's actual path in three places:
+
+- A bare `@<path>` import line, outside code spans and code blocks. Claude Code loads imported files at session start, including imports inside `AGENTS.md` when `CLAUDE.md` imports it. Other agents see the line as plain text.
+- A trigger to read the guide before committing, opening a pull request, or creating an issue. This covers agents that do not follow imports.
+- The attribution rule in full. Agent tools often add their own co-author defaults, so this rule must stay in context and not only in a linked file.
+
+Verify the import path resolves from `AGENTS.md`.
 
 ## Agent instructions
 

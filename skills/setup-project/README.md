@@ -24,6 +24,8 @@ Every run applies shared commit, PR, and issue conventions, including no agent c
 
 Setup creates or updates `AGENTS.md` with Simplified Technical English principles and the required cycle: plan → implement with TDD → quick code review → simplify → code review. It directs agents to use `tdd`, `code-review`, and `simplify` when available, with built-in fallback instructions. `CLAUDE.md` contains only `@AGENTS.md`. Existing project instructions are merged into `AGENTS.md`.
 
+Development runs in Docker Compose. Application data uses PostgreSQL, automated tests use SQLite, and projects that need S3 use RustFS locally. Existing database engines and container setups are kept unless you request a change.
+
 New Python and Django projects default to **uv**. New frontend projects default to **pnpm** with a three-day release hold. Existing package managers and working configuration are preserved unless you request a migration.
 
 Setup creates a `.context7lib` allowlist for the project's tools. This guides agent queries when Context7 is available; it does not enforce tool access. See the [documentation policy](references/context7.md).

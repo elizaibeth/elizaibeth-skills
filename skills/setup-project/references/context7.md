@@ -6,7 +6,7 @@ Generate the documentation allowlist during project setup. Use Context7 only whe
 
 Keep approved Context7 library IDs in `.context7lib` at the target repository root: one exact ID per line, with no annotations. This is our project convention, not a Context7 configuration file that enforces access.
 
-Read the matching sections of the [approved catalog](context7-libraries.md). Its exact IDs are pre-approved defaults. Select the language/framework entries and tools actually used or configured in this run, based on manifests, direct dependencies, imports, and tool configuration. Do not include unrelated rows or every transitive package.
+Read the matching sections of the [approved catalog](context7-libraries.md). Its exact IDs are pre-approved defaults. Select the language/framework entries and tools actually used or configured in this run, based on manifests, direct dependencies, imports, and tool configuration. Do not include unrelated rows or every transitive package. Each row must match the package name actually installed; for example, `httpx2` does not select an `httpx` row.
 
 Write the selected IDs automatically, sorted and deduplicated, without a selection pause. Merge existing approved entries; preserve explicit project exclusions and version pins rather than adding the unversioned equivalent. Reruns must not duplicate entries. If no rows match, write an empty file and report the unsupported libraries. Generate it even when Context7 is unavailable and report that live access was not checked.
 
