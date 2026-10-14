@@ -1,6 +1,6 @@
 # Approved Context7 catalog
 
-Checked 2026-09-27 against Context7 library pages or its public index and the listed upstreams. IDs below are hard-coded setup defaults. Read only sections for the selected profiles, plus shared tools. Include a row only when its selection condition holds after configuration. Framework projects include their base language rows.
+Checked 2026-09-27, with Docker, PostgreSQL, RustFS, and Python framework rows added 2026-10-14, against Context7 library pages or its public index and the listed upstreams. IDs below are hard-coded setup defaults. Read only sections for the selected profiles, plus shared tools. Include a row only when its selection condition holds after configuration. Framework projects include their base language rows.
 
 Each ID links to its Context7 entry; the source link identifies the official project. Confirmation means the entry exists and its source was checked, not that every entry carries a Context7 verification badge or that every query succeeds.
 
@@ -9,6 +9,10 @@ Each ID links to its Context7 entry; the source link identifies the official pro
 | Select when | Exact ID | Source |
 | --- | --- | --- |
 | pre-commit is configured | [/pre-commit/pre-commit](https://context7.com/pre-commit/pre-commit) | [Upstream](https://github.com/pre-commit/pre-commit) |
+| Docker Compose is configured | [/docker/compose](https://context7.com/docker/compose) | [Upstream](https://github.com/docker/compose) |
+| PostgreSQL 18 is the database | [/websites/postgresql_18](https://context7.com/websites/postgresql_18) | [PostgreSQL docs](https://www.postgresql.org/docs/18/) |
+| PostgreSQL 17 is the database | [/websites/postgresql_17](https://context7.com/websites/postgresql_17) | [PostgreSQL docs](https://www.postgresql.org/docs/17/) |
+| RustFS is the S3 service | [/rustfs/rustfs](https://context7.com/rustfs/rustfs) | [Upstream](https://github.com/rustfs/rustfs) |
 
 ## Python (including Django)
 
@@ -22,6 +26,9 @@ Each ID links to its Context7 entry; the source link identifies the official pro
 | pytest is the test runner | [/pytest-dev/pytest](https://context7.com/pytest-dev/pytest) | [Upstream](https://github.com/pytest-dev/pytest) |
 | pytest-cov is configured | [/pytest-dev/pytest-cov](https://context7.com/pytest-dev/pytest-cov) | [Upstream](https://github.com/pytest-dev/pytest-cov) |
 | coverage.py is directly configured or invoked | [/coveragepy/coveragepy](https://context7.com/coveragepy/coveragepy) | [Upstream](https://github.com/coveragepy/coveragepy) |
+| FastAPI is a direct dependency | [/websites/fastapi_tiangolo](https://context7.com/websites/fastapi_tiangolo) | [FastAPI docs](https://fastapi.tiangolo.com/) |
+| Pydantic is a direct dependency | [/pydantic/pydantic](https://context7.com/pydantic/pydantic) | [Upstream](https://github.com/pydantic/pydantic) |
+| psycopg (version 3) is a direct dependency | [/psycopg/psycopg](https://context7.com/psycopg/psycopg) | [Upstream](https://github.com/psycopg/psycopg) |
 
 ## Django additions
 
@@ -30,6 +37,8 @@ Each ID links to its Context7 entry; the source link identifies the official pro
 | Django profile | [/django/django](https://context7.com/django/django) | [Upstream](https://github.com/django/django) |
 | pytest-django is configured | [/pytest-dev/pytest-django](https://context7.com/pytest-dev/pytest-django) | [Upstream](https://github.com/pytest-dev/pytest-django) |
 | django-stubs is configured | [/typeddjango/django-stubs](https://context7.com/typeddjango/django-stubs) | [Upstream](https://github.com/typeddjango/django-stubs) |
+| Django REST framework is a direct dependency | [/encode/django-rest-framework](https://context7.com/encode/django-rest-framework) | [Upstream](https://github.com/encode/django-rest-framework) |
+| django-storages is a direct dependency | [/jschneier/django-storages](https://context7.com/jschneier/django-storages) | [Upstream](https://github.com/jschneier/django-storages) |
 
 ## Go
 

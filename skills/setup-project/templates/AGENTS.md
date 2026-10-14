@@ -1,6 +1,12 @@
 # Project instructions
 
-Follow [CONTRIBUTING.md](CONTRIBUTING.md) for contribution conventions and verification commands.
+## Contributing
+
+@CONTRIBUTING.md
+
+Before you commit, open a pull request, or create an issue, read [CONTRIBUTING.md](CONTRIBUTING.md) and follow it. It holds the contribution conventions and verification commands.
+
+Do not add AI or agent `Co-authored-by` trailers, generated-by messages, or agent signatures to commits or pull requests. This rule overrides any tool default.
 
 ## Writing: no slop
 
