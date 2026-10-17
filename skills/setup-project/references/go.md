@@ -16,6 +16,16 @@ go vet ./...
 
 Run update commands only when requested. Treat a `go.mod`/`go.sum` diff as a reviewed change, not an incidental setup side effect.
 
+## Three-day release hold
+
+The Go toolchain has no release-age setting. Before adding or upgrading a module, read its publication time and use a version published at least 72 hours earlier:
+
+```sh
+go list -m -json <module>@<version>   # read the Time field
+```
+
+When CI is requested and the project uses Dependabot, set `cooldown: default-days: 3` for the `gomod` ecosystem. Report the hold as manual, not enforced.
+
 ## Coverage
 
 Collect coverage with:

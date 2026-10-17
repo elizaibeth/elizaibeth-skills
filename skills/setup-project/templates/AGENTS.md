@@ -8,6 +8,10 @@ Before you commit, open a pull request, or create an issue, read [CONTRIBUTING.m
 
 Do not add AI or agent `Co-authored-by` trailers, generated-by messages, or agent signatures to commits or pull requests. This rule overrides any tool default.
 
+## Dependencies
+
+Add or upgrade only package versions published at least 72 hours earlier. The package manager enforces this hold where it can; where it cannot, check the publication date before you add the version. Shortening or bypassing the hold needs explicit approval.
+
 ## Writing: no slop
 
 Use Simplified Technical English principles in replies, documentation, and comments. Use common, precise words, short sentences, active voice, and one term per concept. Give each sentence one main idea. Remove filler, hype, repetition, and unsupported claims. Preserve technical meaning, necessary qualifications, code, identifiers, and commands.

@@ -26,7 +26,9 @@ Setup creates or updates `AGENTS.md` with Simplified Technical English principle
 
 Development runs in Docker Compose. Application data uses PostgreSQL, automated tests use SQLite, and projects that need S3 use RustFS locally. Existing database engines and container setups are kept unless you request a change.
 
-New Python and Django projects default to **uv**. New frontend projects default to **pnpm** with a three-day release hold. Existing package managers and working configuration are preserved unless you request a migration.
+New Python and Django projects default to **uv**. New frontend projects default to **pnpm**. Existing package managers and working configuration are preserved unless you request a migration.
+
+Every profile applies a three-day release hold: packages must be published at least 72 hours before install. uv, pnpm, and Composer enforce it in configuration. Go and Swift have no native setting, so agents check publication dates by hand and Dependabot gets a cooldown when CI is added.
 
 Setup creates a `.context7lib` allowlist for the project's tools. This guides agent queries when Context7 is available; it does not enforce tool access. See the [documentation policy](references/context7.md).
 
