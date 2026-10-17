@@ -1,6 +1,6 @@
 ---
 name: loopy
-description: Implement a bounded set of GitHub issues through read, plan, TDD, coverage, simplification, regression testing, and code review. Use explicitly when the user asks to work through issues as a controlled implementation loop.
+description: Implement a bounded set of GitHub issues through read, plan, TDD, coverage, regression testing, simplification, and code review. Use explicitly when the user asks to work through issues as a controlled implementation loop.
 ---
 
 # Loopy
@@ -22,15 +22,15 @@ For each vertical slice, complete every stage in order:
 1. **Red:** add or update behavior tests for the happy path and relevant invalid, denied, missing, or boundary path. Run them and confirm they fail for the intended reason before implementing.
 2. **Green:** implement the smallest change that makes the new tests pass. Preserve existing behavior outside the slice.
 3. **Coverage:** run the focused tests and the project's coverage tool. Confirm both paths are exercised; use existing thresholds and report formats. Do not invent a threshold.
-4. **Simplify:** keep the implementation terse, idiomatic, and easy to scan. Remove duplication, speculative abstractions, dead code, ceremony, and unnecessary branches while keeping the tests meaningful. Add an abstraction only when it removes real complexity or protects a real seam.
-5. **Regression:** run the focused tests again, then the relevant broader suite. Add a regression test for every discovered failure.
+4. **Regression:** run the focused tests again, then the relevant broader suite. Add a regression test for every discovered failure.
+5. **Simplify:** keep the implementation terse, idiomatic, and easy to scan. Remove duplication, speculative abstractions, dead code, ceremony, and unnecessary branches while keeping the tests meaningful. Add an abstraction only when it removes real complexity or protects a real seam. Rerun the Regression checks after any change.
 6. **Review:** inspect the diff against the issue and repository standards. Fix concrete findings within the remaining budget before moving on.
 
 Keep command evidence for the final report. After each slice, give one progress line using [the reporting guide](references/run-report.md).
 
 ## Breaker
 
-Default to **3 iterations per issue** and **10 for the run**. Accept explicit numeric limits up to hard caps of **5 per issue** and **20 total**. An unlimited request changes neither defaults nor caps.
+Default to **3 iterations per issue** and **10 for the run**. Set the run limit from `--iterations=N` or a phrase such as "N iterations", and the per-issue limit from `--per-issue=N` or "N per issue". Hard caps are **5 per issue** and **20 total**: clamp a higher value to the cap and say so in the first progress line. An unlimited request changes neither defaults nor caps.
 
 Consume one iteration before starting a slice. Each corrective attempt or retry after an unexpected failure or review finding consumes another iteration before editing or rerunning checks, even within the same stage. Batch related findings into one attempt; rerun affected and downstream checks. The expected Red failure is not a retry. New hypotheses, slices, and resumed turns do not reset counters.
 
