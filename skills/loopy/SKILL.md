@@ -7,7 +7,7 @@ hooks:
     - hooks:
         - type: command
           command: |
-            d=$(git rev-parse --git-common-dir 2>/dev/null) || exit 0
+            d=$(git rev-parse --git-dir 2>/dev/null) || exit 0
             f="$d/loopy-run.md"
             [ -f "$f" ] || exit 0
             [ "$(sed -n 's/^status: *//p' "$f")" = running ] || exit 0
@@ -15,7 +15,7 @@ hooks:
             b=$(sed -n 's/^stop_blocks: *//p' "$f")
             [ "${b:-0}" -ge 60 ] && exit 0
             sed -i.bak "s/^stop_blocks: .*/stop_blocks: $((b + 1))/" "$f" && rm -f "$f.bak"
-            printf '{"decision":"block","reason":"The Loopy run is still running (status: running in %s). Read that file and continue with the next stage now. A progress line is not a stopping point. End the run only by setting status to done, breaker or cap, as the Loopy skill says."}' "$f"
+            printf '{"decision":"block","reason":"The Loopy run is still running (status: running in %s). Read that file and continue with the next stage now. A progress line is not a stopping point. End the run only by setting status to done, breaker, cap or stopped, as the Loopy skill says."}' "$f"
 ---
 
 # Loopy
@@ -26,10 +26,11 @@ Run the whole set in one go. Do not pause for plan approval, progress reports or
 
 ## Run state
 
-Keep the run's state in `loopy-run.md` in the repository's git directory: the path is `$(git rev-parse --git-common-dir)/loopy-run.md`. Git does not track this file, so it never makes the working tree dirty. Create it before the first iteration:
+Keep the run's state in `loopy-run.md` in the repository's git directory: the path is `$(git rev-parse --git-dir)/loopy-run.md`. Each worktree has its own git directory, so parallel runs in separate worktrees do not share a file. Git does not track this file, so it never makes the working tree dirty. Create it before the first iteration:
 
 ```text
 status: running
+options: #12 #15 --merge=pr
 run_iterations: 0/20
 current: #12 slice 1, Red
 stop_blocks: 0
@@ -39,10 +40,13 @@ issues:
 log:
 ```
 
+- Record the run's arguments in `options`: the issue list and every flag or phrase that sets limits or merging. Follow `options`, not memory, after context compaction.
 - Update it after every stage: the counters, the current issue, slice and stage, each issue's status, and one log line per finished slice.
 - Read it at the start of every turn. It is the source of truth for counters and progress, also after context compaction.
-- `status` is one of `running`, `done`, `breaker` or `cap`. While it is `running`, a Stop hook in Claude Code sends you back to work when you try to end the turn. After 60 blocks the hook lets the turn end, to prevent an endless loop.
+- `status` is one of `running`, `done`, `breaker`, `cap` or `stopped`. While it is `running`, a Stop hook in Claude Code sends you back to work when you try to end the turn. After 60 blocks the hook lets the turn end, to prevent an endless loop.
+- If the user asks to stop, pause or cancel the run, finish no further stages: set `status: stopped`, give the breaker report, and end the turn.
 - On a resumed run, keep the file and its counters. Set `status: running` again, and reset `stop_blocks` to 0.
+- For a new run, replace any existing file, whatever its status. A run is new when its issue set differs from `options` in the file; when unsure whether the user means to resume, treat it as new.
 
 ## Start with read and plan
 
