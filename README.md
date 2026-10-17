@@ -9,8 +9,8 @@ Reusable AI agent skills for project setup, development, review, and clear techn
 | [no-slop](skills/no-slop/SKILL.md) | Write and rewrite using Simplified Technical English to remove AI slop. |
 | [stress-test](skills/stress-test/SKILL.md) | Ruthlessly critique ideas, plans, reports, or code. |
 | [big-backend](skills/big-backend/SKILL.md) | Build Laravel 13 CRUD backends from a database, specification, or system-design conversation. |
-| [setup-project](skills/setup-project/SKILL.md) | Apply contribution conventions and set up language-specific tooling, tests, coverage, hooks, and optional CI. |
-| [loopy](skills/loopy/SKILL.md) | Implement GitHub issues with TDD, coverage, regression checks, and bounded iterations. |
+| [setup-project](skills/setup-project/SKILL.md) | Apply contribution conventions and set up language-specific tooling, tests, coverage, hooks, a three-day package release hold, and optional CI. |
+| [loopy](skills/loopy/SKILL.md) | Implement GitHub issues with TDD, coverage, regression checks, simplification, review, and bounded iterations. |
 
 ## Installation
 
@@ -44,13 +44,15 @@ If you installed the former Claude Code plugin, uninstall it through Claude Code
 
 > Use $setup-project to set up this project.
 
-See the [usage guide](skills/setup-project/README.md) for supported stacks, defaults, and examples.
+See the [usage guide](skills/setup-project/README.md) for supported stacks, defaults, the release hold, and examples.
 
 ### Loopy
 
 > Use $loopy to implement issues #12 and #15 in this repository.
 
-See the [usage guide](skills/loopy/README.md) for the implementation loop and iteration limits.
+> Use $loopy for issues #12 to #18 --iterations=20 --per-issue=4
+
+`--iterations` sets the run limit and `--per-issue` sets the limit for each issue. See the [usage guide](skills/loopy/README.md) for the implementation loop, defaults, and caps.
 
 ### Big Backend
 
@@ -79,7 +81,7 @@ npm run check
 
 Each skill lives in `skills/<skill-name>/`, with instructions in `SKILL.md` and supporting files alongside it. Add new skills to the table above.
 
-Work on `develop`; merge verified changes to `main` for stable use and make `main` the GitHub default branch. CI runs on both branches and pull requests. Git history records changes; no Changesets or version bumps are needed. npm supplies validation tooling only; nothing is published to npm.
+Work on a feature branch and open a pull request to `main`. CI runs on pull requests and on pushes to `main`. Git history records changes; no Changesets or version bumps are needed. npm supplies validation tooling only; nothing is published to npm.
 
 ## License
 
