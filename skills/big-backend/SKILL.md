@@ -30,7 +30,7 @@ Reconcile existing migrations with the specification and accessible database; ex
 ## Build and verify
 
 - **Backend:** read [backend.md](references/backend.md) to select templates and replace their assumptions. Complete all requested layers, including missing pieces.
-- **UI:** read [ui.md](references/ui.md) before selecting or installing examples. Use BigBackend styling for new interfaces; preserve an existing design unless redesign is requested.
+- **UI:** read [ui.md](references/ui.md) before selecting or installing examples. Use BigBackend styling for new interfaces, and build their layout and pages from `components/examples/app`. Preserve an existing design unless redesign is requested.
 - **Verification:** follow [verification.md](references/verification.md) for backend and browser evidence. Inspect the final diff for unintended changes.
 
 Report delivered resources, checks actually run, results, and remaining limitations. Distinguish structural checks from application and browser tests.

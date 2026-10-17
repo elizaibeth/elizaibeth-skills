@@ -1,8 +1,33 @@
 # Compose BigBackend UI
 
-## Choose examples
+## Start from the application examples
 
-The [component library](../components/COMPONENTS.md) contains Blade reference examples, CSS and JavaScript source. It supplies patterns for composing a site, not a ready-to-install application or a set of registered Blade components. Read only the files relevant to the interface being built.
+`components/examples/app/` is a small, complete admin interface for a sample `projects` resource nested under `customers`. Its folders mirror `resources/views/`, plus a navigation composer. It is the starting point for the layout and the resource pages. Do not write a shell or page markup from scratch.
+
+| File | Use |
+| --- | --- |
+| `layouts/admin.blade.php` | Admin shell: head, skip link, fixed sidebar that slides in below `lg`, sticky header with breadcrumbs, dark-mode toggle and account menu, record tabs, flash and error messages. |
+| `layouts/guest.blade.php`, `auth/login.blade.php` | Sign-in page with the same theme. |
+| `layouts/_head.blade.php`, `_logo.blade.php`, `_messages.blade.php` | Partials shared by both layouts. `_head` applies the saved dark mode before the first paint. |
+| `navigation/AdminNavigation.php` | View composer for `layouts.admin`. It builds the marked sidebar section, the record tabs and the ownership breadcrumbs from the current route. Copy it to `app/View/` and register it in a service provider. |
+| `components/table`, `tr`, `td`, `empty`, `status` | Anonymous Blade components (`x-table`, `x-tr`, `x-td`, `x-empty`, `x-status`). Copy them to `resources/views/components/`. |
+| `pagination/admin.blade.php` | Pagination view. Set it with `Paginator::defaultView('pagination.admin')`. |
+| `projects/index`, `show`, `create`, `edit`, `_form` | Resource pages: page header and action, filter, table, empty state, pagination, details, child table, typed-name delete confirmation, and a shared form with `old()` values, method spoofing, a select, a date, a number, a textarea and a checkbox with a hidden `0` value. |
+| `components/js/admin.js` | Alpine entrypoint for the shell: persist plugin, `global` store, `usePopper`, one `Alpine.start()`. |
+| `components/css/components/form.css` | The `bb-form` stacked-form spacing used by the forms. |
+
+For a new interface:
+
+1. Copy the layouts, partials, components and pagination view into `resources/views/`. Replace the sample sections in `layouts/admin.blade.php` (labels, route names and icons), the logo and the guest-page text.
+2. Adapt `AdminNavigation` to the real sections, ownership chain and record tabs. Keep one sidebar for every page. Tabs show the pages of one record; breadcrumbs show its owners.
+3. Build each resource from the `projects` pages. Replace the fields, routes, route parameters, status values and text. Keep the structure, classes and accessibility attributes.
+4. Import `js/admin.js` from `resources/js/app.js`, and add `alpinejs`, `@alpinejs/persist` and `@popperjs/core`.
+
+In an application that already has a layout, keep it and use only the page examples inside it.
+
+## Choose component examples
+
+The [component library](../components/COMPONENTS.md) also contains Blade reference examples, CSS and JavaScript source for single components. Use them for needs that the application examples do not cover. They are patterns, not a ready-to-install application or a set of registered Blade components. Read only the files relevant to the interface being built.
 
 | Need | Start with |
 | --- | --- |
@@ -20,9 +45,9 @@ Replace placeholders with actual Blade bindings, named routes, unique IDs, label
 
 The bundled CSS uses Tailwind's `@theme`, `@source`, and `@custom-variant` syntax and therefore needs a compatible Tailwind 4 pipeline. Check the target's build before integrating it. In an older or differently styled project, adapt selected patterns to that stack unless a migration was requested.
 
-For a new BigBackend theme, copy `css/bigbackend.css`, `css/foundation.css`, and selected `css/components/*.css` files into a namespaced directory such as `resources/css/bigbackend/`. Maintain their relative structure and edit the copied component import index to contain just the needed modules. Import this entrypoint through the app's existing Vite/CSS setup, with Tailwind configured once. Recalculate its `@source` paths relative to its new location so real Blade/JS files are scanned; the bundled relative paths are not universal installation paths.
+For a new BigBackend theme, copy `css/bigbackend.css`, `css/foundation.css`, and selected `css/components/*.css` files into a namespaced directory such as `resources/css/bigbackend/`. Maintain their relative structure and edit the copied component import index to contain just the needed modules. Import this entrypoint through the app's existing Vite/CSS setup, with Tailwind configured once. The bundled `@source` paths fit `resources/css/bigbackend/bigbackend.css`. In another location, recalculate them so that the real Blade and JS files are scanned.
 
-`bigbackend.css` owns the graphite, brand/teal, signal, and coral tokens. `foundation.css` includes global element and shell styling; retain only the rules that fit the target layout when integrating into an existing application. Load Plus Jakarta Sans only if desired and available through the project's font delivery; the CSS declaration alone does not download it. Its system font fallback works without external requests.
+`bigbackend.css` owns the graphite, brand/teal, signal, and coral tokens. `foundation.css` includes global element styling and an older set of shell rules (`main-sidebar`, `sidebar-panel`, `nav.header`, `main-content`). The application shell uses Tailwind utilities and does not need those shell rules. Retain only the rules that fit the target layout. Load Plus Jakarta Sans only if desired and available through the project's font delivery; the CSS declaration alone does not download it. Its system font fallback works without external requests.
 
 First-party classes include `bb-surface`, `bb-action`, `bb-field`, `bb-select`, `bb-checkbox`, `bb-switch`, `bb-avatar`, and `bb-popover`. Read their CSS before composing overrides. Keep Tailwind utilities, vendor selectors, directive names and third-party option keys intact: `pagination`, `swiper-pagination`, and `x-input-mask` are functional contracts. Renaming class tokens must not rewrite prose, paths, JS object keys, or vendor APIs.
 

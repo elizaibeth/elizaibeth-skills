@@ -17,6 +17,7 @@ Common commands, when available in the target: `php artisan route:list`, `php ar
 
 - Run the production frontend build with the target's package manager and lockfile.
 - Open the generated resource in a browser. Create a record, submit an invalid value, edit it, follow its details link, paginate/filter where provided, then delete the test record.
+- Check the shell at desktop and phone widths: the sidebar shows on desktop, and on a phone it opens from the menu button and closes with Escape or the overlay. Check that the marked section, tabs and breadcrumbs match the page, that the account menu opens, and that dark mode persists after a reload.
 - Check labels, keyboard focus, validation feedback, empty states, confirmation flows, mobile layout, and both themes when dark mode is included.
 - Inspect console errors, missing imports and images, failed network requests, and duplicate Alpine initialization. Exercise any selected third-party widgets.
 

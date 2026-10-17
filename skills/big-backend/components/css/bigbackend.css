@@ -1,16 +1,14 @@
 @layer theme, base, components, utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@source '../../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../../storage/framework/views/*.php';
+@source '../../views/**/*.blade.php';
+@source '../../js/**/*.js';
 
 @import "./foundation.css" layer(base);
 @import "./components/index.css" layer(components);
 
 @import "tailwindcss";
-
-@import "highlight.js/styles/atom-one-dark.css" layer(components); /* Just for demo purpose only for highlighting code */
 
 @custom-variant dark (&:is(.dark *));
 

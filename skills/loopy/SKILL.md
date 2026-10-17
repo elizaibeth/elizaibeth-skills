@@ -1,30 +1,32 @@
 ---
 name: loopy
-description: Implement a bounded set of GitHub issues through read, plan, TDD, coverage, regression testing, simplification, and code review. Use explicitly when the user asks to work through issues as a controlled implementation loop.
+description: Implement a bounded set of GitHub issues through read, plan, TDD, coverage, regression testing, simplification, code review, and a commit per iteration. Use explicitly when the user asks to work through issues as a controlled implementation loop.
+argument-hint: "<issues...> [--iterations=N] [--per-issue=N] [--merge[=pr|local]]"
 ---
 
 # Loopy
 
-Turn a supplied set of GitHub issues into verified, reviewable changes. Work in issue order unless dependencies require another order. Preserve the user's scope and repository instructions. Do not push, merge, close issues, or create releases unless the user asks.
+Turn a supplied set of GitHub issues into verified, reviewable changes. Work in issue order unless dependencies require another order. Preserve the user's scope and repository instructions. Commit every iteration. Push and merge only with `--merge` or an explicit merge request. Close issues or create releases only when the user asks.
 
 ## Start with read and plan
 
 Read the full issue bodies, comments, labels, linked issues, repository instructions, current branch and diff, relevant code, tests, and existing quality gates. Use `gh issue view` for GitHub issues when available. Separate confirmed requirements, acceptance criteria, assumptions, and blockers.
 
-Before editing, write a compact internal plan: issue order, one or more vertical slices per issue, the expected happy and sad paths, files likely to change, and the verification command for each slice. Proceed without a confirmation pause. If an issue is too ambiguous to implement safely, stop that issue and continue only when the remaining issue set is independent.
+Before editing, write a compact internal plan: issue order, one or more vertical slices per issue, the expected happy and sad paths, files likely to change, and the verification command for each slice. Proceed without a confirmation pause. Before an issue's first iteration, create a `type/short-topic` branch for it from the default branch, or reuse the current feature branch. If an issue is too ambiguous to implement safely, stop that issue and continue only when the remaining issue set is independent.
 
 ## Run the loop
 
-Read and use available skills at the matching stage: `tdd` for Red/Green, `simplify` for Simplify, and `code-review` for Review and the final review. If a skill is unavailable, follow the steps below; do not install it automatically. Supply review skills with the issue requirements, baseline, and current diff, including uncommitted changes. Loopy's stage order, scope, approval boundaries, and breaker still apply; corrections and retries inside another skill count toward the same limits.
+Each stage names the skill it runs. Use a stage's fallback only when that skill is missing from the session's skill list, and name the fallback in the progress line; do not install skills. Loopy's stage order, scope, approval boundaries, and breaker still apply; corrections and retries inside another skill count toward the same limits.
 
 For each vertical slice, complete every stage in order:
 
-1. **Red:** add or update behavior tests for the happy path and relevant invalid, denied, missing, or boundary path. Run them and confirm they fail for the intended reason before implementing.
-2. **Green:** implement the smallest change that makes the new tests pass. Preserve existing behavior outside the slice.
+1. **Red:** run the `tdd` skill for this slice's behavior tests: the happy path plus the relevant invalid, denied, missing, or boundary path. Done when the new tests run and fail for the intended reason. Fallback: write and run the tests yourself.
+2. **Green:** continue the `tdd` skill with the smallest change that passes. Done when the new tests pass and existing behavior outside the slice is unchanged. Fallback: make the change yourself.
 3. **Coverage:** run the focused tests and the project's coverage tool. Confirm both paths are exercised; use existing thresholds and report formats. Do not invent a threshold.
 4. **Regression:** run the focused tests again, then the relevant broader suite. Add a regression test for every discovered failure.
-5. **Simplify:** keep the implementation terse, idiomatic, and easy to scan. Remove duplication, speculative abstractions, dead code, ceremony, and unnecessary branches while keeping the tests meaningful. Add an abstraction only when it removes real complexity or protects a real seam. Rerun the Regression checks after any change.
-6. **Review:** inspect the diff against the issue and repository standards. Fix concrete findings within the remaining budget before moving on.
+5. **Simplify:** run the `simplify` skill on the slice diff, then rerun the Regression checks. Done when the skill's fixes are applied and the checks pass. Fallback: remove duplication, speculative abstractions, dead code, and unnecessary branches yourself, keeping the tests meaningful.
+6. **Review:** run the `code-review` skill with the issue's requirements, the iteration's base commit, and the current diff. Done when its report is in hand and every finding is fixed or recorded for the final report. Fallback: inspect the diff against the issue and repository standards yourself.
+7. **Commit:** commit the iteration on the issue branch, following the repository's commit conventions, with `Refs #<issue>` in the body. Done when the commit exists, its hooks pass, and the working tree is clean. A failed hook is a retry and consumes an iteration.
 
 Keep command evidence for the final report. After each slice, give one progress line using [the reporting guide](references/run-report.md).
 
@@ -50,4 +52,6 @@ When the breaker fires, report it using the reporting guide and wait for directi
 
 ## Finish
 
-After all issues pass their loops, run the relevant full test and quality suites, inspect the complete diff, and perform one final code review. Use the reporting guide for the handoff. Required acceptance criteria and verification must pass before an issue is complete.
+After all issues pass their loops, run the relevant full test and quality suites, then run the `code-review` skill on the complete diff. Commit any fixes as in the Commit stage. Required acceptance criteria and verification must pass before an issue is complete. Use the reporting guide for the handoff.
+
+With `--merge` or an explicit merge request, merge each issue after its final review passes. `--merge` and `--merge=pr` push the issue branch and merge it through a pull request; `--merge=local` merges it into the default branch locally. Use a method the user names in words. Without either, leave the branches unmerged and list them in the handoff.
