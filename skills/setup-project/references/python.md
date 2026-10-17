@@ -22,6 +22,21 @@ python -m pip check             # pip environments
 
 Only run dependency updates when requested. For other managers, use their canonical development dependency group and match CI dependencies to local checks.
 
+## Three-day release hold
+
+For uv projects, merge this into `pyproject.toml`. Preserve a longer existing hold:
+
+```toml
+[tool.uv]
+exclude-newer = "3 days"
+```
+
+uv ignores distributions uploaded in the last 72 hours, including transitive dependencies. It records the cutoff in `uv.lock` and moves it only on a new resolution, such as `uv lock --upgrade`. This reduces risk; it does not guarantee safety.
+
+Duration values need a recent uv; older versions accept only timestamps. Confirm the installed uv accepts the setting with `uv lock --check`, and report an enforcement gap if it does not. Verify against the official [dependency cooldown docs](https://docs.astral.sh/uv/concepts/resolution/#dependency-cooldowns).
+
+Keep `exclude-newer-package` absent by default. Report existing exceptions. Adding exemptions, shortening the hold, or bypassing it requires explicit approval. If a version is too new, use an eligible compatible version or report the block. For Poetry, Pipenv, or pip workflows, report the hold as unapplied.
+
 ## Container
 
 Follow the [development environment](dev-environment.md). Base the image on the official `python` slim image for the declared version. Copy uv from `ghcr.io/astral-sh/uv:<pinned version>`. Set `UV_LINK_MODE=copy`, use a cache mount, and run `uv sync --locked --no-install-project` before copying the source, then `uv sync --locked`. Keep the environment out of the bind mount: set `UV_PROJECT_ENVIRONMENT=/opt/venv`, or exclude `.venv/` from Compose watch. See the uv [Docker guide](https://docs.astral.sh/uv/guides/integration/docker/).

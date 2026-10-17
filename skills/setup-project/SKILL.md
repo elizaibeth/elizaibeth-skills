@@ -32,7 +32,7 @@ Read [Context7 policy](references/context7.md) and generate `.context7lib` from 
 ## Configure and verify
 
 1. Apply contribution conventions and templates on every run. Create or update root `AGENTS.md` with the shared writing and implementation rules; make `CLAUDE.md` contain only `@AGENTS.md`. Already compliant files need no edits.
-2. Configure the selected profiles' package commands, formatting, linting, tests, coverage, and audits. Use existing tools before adding alternatives; verify version-dependent commands against installed help or official documentation. Keep dependencies in the chosen manager's manifests and lockfiles; avoid unrelated upgrades.
+2. Configure the selected profiles' package commands, formatting, linting, tests, coverage, and audits. Use existing tools before adding alternatives; verify version-dependent commands against installed help or official documentation. Keep dependencies in the chosen manager's manifests and lockfiles; avoid unrelated upgrades. Apply each profile's three-day release hold.
 3. Set up the container development environment and backing services.
 4. Merge pre-commit hygiene and secret scanning with the language checks. Pin hook revisions, install hooks in the target clone, and document tool prerequisites. Keep slow suites and audits available as explicit commands. When CI is requested, use the same locked environment and checks there.
 5. Run the configured checks and record coverage. Exercise meaningful happy, failure, and boundary paths; a percentage alone proves none of these. Preserve existing thresholds; add new thresholds only when requested. Ignore generated reports. Mark unavailable checks unverified and report an empty test suite honestly.
@@ -43,6 +43,7 @@ Stay within project setup. Preserve application behavior, migration history, sec
 
 - `.git/hooks/pre-commit` exists, and `pre-commit run --all-files` passes. Each `exclude` pattern matches a real path.
 - Hook revisions came from `pre-commit autoupdate` or the registry, not memory.
+- Each package manager enforces the three-day release hold, or the report names it as manual or unapplied.
 - When the project has a container stack, it starts healthy and the checks pass in it, or the report marks them unverified.
 - The contribution guide lists the actual commands: start, one-off command, install, focused test, full test, service and end-to-end tests (when present), coverage, lint, format, typing, audit, and hooks.
 - The conventions files, tracker templates, `AGENTS.md`, `CLAUDE.md`, and `.context7lib` exist or the report says why not.

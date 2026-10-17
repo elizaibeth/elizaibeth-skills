@@ -16,6 +16,10 @@ xcodebuild -scheme <scheme> -destination '<destination>' test
 
 Use the project's declared scheme and simulator/device destination in CI.
 
+## Three-day release hold
+
+Swift Package Manager has no release-age setting. Before adding or upgrading a package, check the release tag date and use a version published at least 72 hours earlier. When CI is requested and the project uses Dependabot, set `cooldown: default-days: 3` for the `swift` ecosystem. Report the hold as manual, not enforced.
+
 ## Coverage
 
 For Xcode projects, collect coverage with the test action:
