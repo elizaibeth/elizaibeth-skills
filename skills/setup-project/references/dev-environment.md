@@ -7,6 +7,7 @@ Apply this to every project with a runnable application or backing services. Lan
 Run the application, its backing services, tests, and checks in Docker containers. Contributors need only Docker, Git, and pre-commit on the host; a host language environment is optional editor support, not a requirement.
 
 - Commit a `Dockerfile` and a root `compose.yaml`. Use Compose `develop.watch` or a source bind mount for reload. Keep dependency directories (for example `.venv`, `node_modules`, `vendor`) inside the container, not in the bind mount.
+- Use a multi-stage `Dockerfile`. A `dev` target holds development dependencies and runs with reload; Compose builds it with `target: dev`. The final stage is the production image: runtime dependencies and the application only, a non-root user, no development tools or tests, and a start command without reload.
 - Pin base and service images to an exact version tag. Check the registry for the current stable release; do not pin versions from memory. Do not use `latest`.
 - Give each backing service a healthcheck. Make the application `depends_on` it with `condition: service_healthy`.
 - Read configuration from environment variables. Commit `.env.example` with names and local-only defaults; ignore `.env`. Never commit real credentials.

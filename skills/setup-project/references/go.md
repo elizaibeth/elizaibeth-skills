@@ -24,7 +24,7 @@ The Go toolchain has no release-age setting. Before adding or upgrading a module
 go list -m -json <module>@<version>   # read the Time field
 ```
 
-When CI is requested and the project uses Dependabot, set `cooldown: default-days: 3` for the `gomod` ecosystem. Report the hold as manual, not enforced.
+When the project uses Dependabot, set `cooldown: default-days: 3` for the `gomod` ecosystem. Report the hold as manual, not enforced.
 
 ## Coverage
 

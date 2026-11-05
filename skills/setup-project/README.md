@@ -24,16 +24,16 @@ Every run applies shared commit, PR, and issue conventions, including no agent c
 
 Setup creates or updates `AGENTS.md` with Simplified Technical English principles and the required cycle: plan → implement with scenario-first TDD → simplify → code review, with simplify and review once per feature. It directs agents to use `tdd`, `code-review`, and `simplify` when available, with built-in fallback instructions. `CLAUDE.md` contains only `@AGENTS.md`. Existing project instructions are merged into `AGENTS.md`.
 
-Development runs in Docker Compose. Application data uses PostgreSQL, automated tests use SQLite, and projects that need S3 use RustFS locally. Existing database engines and container setups are kept unless you request a change.
+Development runs in Docker Compose. The same `Dockerfile` has a production stage that holds only runtime dependencies and runs as a non-root user. Application data uses PostgreSQL, automated tests use SQLite, and projects that need S3 use RustFS locally. Existing database engines and container setups are kept unless you request a change.
 
 New Python and Django projects default to **uv**. New frontend projects default to **pnpm**. Existing package managers and working configuration are preserved unless you request a migration.
 
 Every profile applies a three-day release hold: packages must be published at least 72 hours before install. uv, pnpm, and Composer enforce it in configuration. Go and Swift have no native setting, so agents check publication dates by hand and Dependabot gets a cooldown when CI is added.
 
-Setup creates a `.context7lib` allowlist for the project's tools. It checks each library live with Context7 on every run and keeps only IDs that exist, are rated High, and come from the official project. This guides agent queries when Context7 is available; it does not enforce tool access. See the [documentation policy](references/context7.md).
+Setup creates a `.context7/allowlist.txt` allowlist for the project's tools. It checks each library live with Context7 on every run and keeps only IDs that exist, are rated High, and come from the official project. This guides agent queries when Context7 is available; it does not enforce tool access. See the [documentation policy](references/context7.md).
 
 ## Limits
 
-CI is added only when requested. Setup verifies once, after all configuration. It records a coverage baseline and preserves existing thresholds; it adds a new threshold only when asked. Unavailable checks and empty test suites are reported, not marked as passing.
+For GitHub repositories, setup adds CI and Dependabot unless you decline; other hosts get CI only on request. Setup verifies once, after all configuration. It records a coverage baseline and preserves existing thresholds; it adds a new threshold only when asked. Unavailable checks and empty test suites are reported, not marked as passing.
 
 Reruns fill gaps without replacing compliant configuration. Setup preserves application behavior, migration history, secrets, signing settings, and your changes. See [the agent instructions](SKILL.md) for the full workflow.

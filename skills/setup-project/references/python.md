@@ -39,7 +39,9 @@ Keep `exclude-newer-package` absent by default. Report existing exceptions. Addi
 
 ## Container
 
-Follow the [development environment](dev-environment.md). Base the image on the official `python` slim image for the declared version. Copy uv from `ghcr.io/astral-sh/uv:<pinned version>`. Set `UV_LINK_MODE=copy`, use a cache mount, and run `uv sync --locked --no-install-project` before copying the source, then `uv sync --locked`. Keep the environment out of the bind mount: set `UV_PROJECT_ENVIRONMENT=/opt/venv`, or exclude `.venv/` from Compose watch. See the uv [Docker guide](https://docs.astral.sh/uv/guides/integration/docker/).
+Follow the [development environment](dev-environment.md). Base the image on the official `python` slim image for the declared version. Copy uv from `ghcr.io/astral-sh/uv:<pinned version>`. Set `UV_LINK_MODE=copy`, use a cache mount, and run `uv sync --locked --no-install-project` before copying the source, then `uv sync --locked`. Keep the environment out of the bind mount: set `UV_PROJECT_ENVIRONMENT=/opt/venv`, or exclude `.venv/` from Compose watch.
+
+For the production stage, sync in a builder stage with `uv sync --locked --no-dev --no-editable` and `UV_PYTHON_DOWNLOADS=0`. Copy only the virtual environment into a fresh slim image of the same Python version. When the project is not installed as a package, such as a Django project with `manage.py`, also copy the application source, without tests. Create a non-root user and switch to it with `USER`. Do not copy uv into this stage. Start a production server without reload, such as `uvicorn` without `--reload`, or `gunicorn` for Django. See the uv [Docker guide](https://docs.astral.sh/uv/guides/integration/docker/).
 
 ## Defaults for new projects
 

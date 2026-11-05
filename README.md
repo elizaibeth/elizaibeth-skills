@@ -9,7 +9,7 @@ Reusable AI agent skills for project setup, development, review, and clear techn
 | [no-slop](skills/no-slop/SKILL.md) | Write and rewrite using Simplified Technical English to remove AI slop. |
 | [stress-test](skills/stress-test/SKILL.md) | Ruthlessly critique ideas, plans, reports, or code. |
 | [big-backend](skills/big-backend/SKILL.md) | Build Laravel 13 CRUD backends from a database, specification, or system-design conversation. |
-| [setup-project](skills/setup-project/SKILL.md) | Apply contribution conventions and set up language-specific tooling, tests, coverage, hooks, a three-day package release hold, and optional CI. |
+| [setup-project](skills/setup-project/SKILL.md) | Apply contribution conventions and set up language-specific tooling, tests, coverage, hooks, a three-day package release hold, a production container, and CI. |
 | [loopy](skills/loopy/SKILL.md) | Implement GitHub issues with TDD, coverage, regression checks, simplification, review, a commit per iteration, and bounded iterations. |
 
 ## Installation

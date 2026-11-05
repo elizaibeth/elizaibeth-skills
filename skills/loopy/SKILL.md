@@ -79,7 +79,7 @@ After each slice, add a log line per [the reporting guide](references/run-report
 After the issue's last slice:
 
 4. **Regression and coverage:** the broader suite once, with the project's coverage tool and existing thresholds; invent no threshold. Read branch coverage for the changed files: each uncovered branch in logic code gets a test or a recorded reason. Add a regression test for every failure found.
-5. **Simplify:** `simplify` skill on the issue diff, then rerun the broader suite. Where the diff uses a library, check its idiomatic use for the installed version with Context7, only for IDs in `.context7lib`; send all queries in one batch. Without Context7 or a listed ID, use the official documentation. Prefer the library's own feature over custom code. Fallback: remove duplication, speculative abstractions, dead code and needless branches yourself, keeping the tests meaningful.
+5. **Simplify:** `simplify` skill on the issue diff, then rerun the broader suite. Where the diff uses a library, check its idiomatic use for the installed version with Context7, only for IDs in `.context7/allowlist.txt` (or a legacy `.context7lib`); send all queries in one batch. Without Context7 or a listed ID, use the official documentation. Prefer the library's own feature over custom code. Fallback: remove duplication, speculative abstractions, dead code and needless branches yourself, keeping the tests meaningful.
 6. **Review:** `code-review` skill with the issue's requirements, the issue's base commit and the issue diff. Done when every finding is fixed or recorded for the handoff. Fallback: check the diff against the issue and repository standards yourself.
 7. **Commit** the fixes as in step 3, and keep command evidence for the handoff.
 
