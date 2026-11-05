@@ -11,7 +11,7 @@ One run establishes shared contribution conventions and the project's language-s
 
 Read project instructions, manifests, lockfiles, tests, hooks, contribution templates, release tooling, and CI. Detect language, framework, supported versions, package manager, and module roots. For an empty directory, use the requested stack; ask for it if unspecified.
 
-Always read and apply [conventions](references/conventions.md), then load every matching profile:
+Always read and apply [conventions](references/conventions.md), then load every matching profile. Read all selected reference files in one call:
 
 | Project | Read |
 | --- | --- |
@@ -27,15 +27,15 @@ Framework additions override conflicting language defaults. In mixed repositorie
 
 Read [development environment](references/dev-environment.md) for every project with a runnable application or backing services. It sets Docker, PostgreSQL, and RustFS for S3. Read [test environment](references/test-environment.md) for every project with tests. It sets the test tiers: SQLite and fakes by default, real services for service and end-to-end tests.
 
-Read [Context7 policy](references/context7.md) and generate `.context7lib` from its bundled catalog alongside conventions. This needs no Context7 connection; documentation queries run only when Context7 is available.
+Read [Context7 policy](references/context7.md) and generate `.context7lib` alongside conventions. Check each ID live with Context7: it must exist, be rated High, and come from the official project. Without Context7, write an empty file and report it.
 
 ## Configure and verify
 
-1. Apply contribution conventions and templates on every run. Create or update root `AGENTS.md` with the shared writing and implementation rules; make `CLAUDE.md` contain only `@AGENTS.md`. Already compliant files need no edits.
+1. Apply contribution conventions and templates on every run. First run `python3 <this skill>/scripts/setup.py scaffold <target>`. It creates missing convention files from the templates and lists existing files to merge. Without Python 3, copy the templates by hand. Create or update root `AGENTS.md` with the shared writing and implementation rules; make `CLAUDE.md` contain only `@AGENTS.md`. Already compliant files need no edits.
 2. Configure the selected profiles' package commands, formatting, linting, tests, coverage, and audits. Use existing tools before adding alternatives; verify version-dependent commands against installed help or official documentation. Keep dependencies in the chosen manager's manifests and lockfiles; avoid unrelated upgrades. Apply each profile's three-day release hold.
-3. Set up the container development environment and backing services.
+3. Set up the container development environment and backing services. Look up all image and release versions in one call, for example `python3 <this skill>/scripts/setup.py tags python~3.14 postgres~18. rustfs/rustfs gh:astral-sh/uv`. Do not verify yet.
 4. Merge pre-commit hygiene and secret scanning with the language checks. Pin hook revisions, install hooks in the target clone, and document tool prerequisites. Keep slow suites and audits available as explicit commands. When CI is requested, use the same locked environment and checks there.
-5. Run the configured checks and record coverage. Exercise meaningful happy, failure, and boundary paths; a percentage alone proves none of these. Preserve existing thresholds; add new thresholds only when requested. Ignore generated reports. Mark unavailable checks unverified and report an empty test suite honestly.
+5. Verify once, after all configuration. Run `docker compose config --quiet`, then `docker compose up --build --wait`, then the hooks, checks, and every configured test tier in the container, then stop the stack. Without a container stack, run the same checks through the package manager. After a fix, rerun only the failed checks. Record coverage. Exercise meaningful happy, failure, and boundary paths; a percentage alone proves none of these. Preserve existing thresholds; add new thresholds only when requested. Ignore generated reports. Mark unavailable checks unverified and report an empty test suite honestly.
 
 Stay within project setup. Preserve application behavior, migration history, secrets, signing settings, and user changes. Review formatter changes before accepting a baseline; leave unrelated application failures reported for follow-up.
 
@@ -45,7 +45,7 @@ Stay within project setup. Preserve application behavior, migration history, sec
 - Hook revisions came from `pre-commit autoupdate` or the registry, not memory.
 - Each package manager enforces the three-day release hold, or the report names it as manual or unapplied.
 - When the project has a container stack, it starts healthy and the checks pass in it, or the report marks them unverified.
-- The contribution guide lists the actual commands: start, one-off command, install, focused test, full test, service and end-to-end tests (when present), coverage, lint, format, typing, audit, and hooks.
+- The contribution guide lists the actual commands: start, one-off command, install, focused test, full test, service and end-to-end tests (when present), coverage, mutation (when configured), lint, format, typing, audit, and hooks.
 - The conventions files, tracker templates, `AGENTS.md`, `CLAUDE.md`, and `.context7lib` exist or the report says why not.
 
 Report selected profiles, files changed, contributor commands, check results, coverage baseline, and remaining gaps. Keep it brief.

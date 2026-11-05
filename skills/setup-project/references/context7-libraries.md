@@ -1,6 +1,6 @@
-# Approved Context7 catalog
+# Known Context7 IDs
 
-Checked 2026-09-27, with Docker, PostgreSQL, RustFS, and Python framework rows added 2026-10-14, against Context7 library pages or its public index and the listed upstreams. IDs below are hard-coded setup defaults. Read only sections for the selected profiles, plus shared tools. Include a row only when its selection condition holds after configuration. Framework projects include their base language rows.
+Checked 2026-09-27, with Docker, PostgreSQL, RustFS, and Python framework rows added 2026-10-14. All IDs rechecked 2026-11-05; the PostgreSQL rows moved to the versioned `/websites/postgresql` entry. Checked against Context7 library pages or its public index and the listed upstreams. These IDs are starting points, not approvals. Setup checks each one live before use; see the [Context7 policy](context7.md). Read only sections for the selected profiles, plus shared tools. Include a row only when its selection condition holds after configuration. Framework projects include their base language rows.
 
 Each ID links to its Context7 entry; the source link identifies the official project. Confirmation means the entry exists and its source was checked, not that every entry carries a Context7 verification badge or that every query succeeds.
 
@@ -10,8 +10,8 @@ Each ID links to its Context7 entry; the source link identifies the official pro
 | --- | --- | --- |
 | pre-commit is configured | [/pre-commit/pre-commit](https://context7.com/pre-commit/pre-commit) | [Upstream](https://github.com/pre-commit/pre-commit) |
 | Docker Compose is configured | [/docker/compose](https://context7.com/docker/compose) | [Upstream](https://github.com/docker/compose) |
-| PostgreSQL 18 is the database | [/websites/postgresql_18](https://context7.com/websites/postgresql_18) | [PostgreSQL docs](https://www.postgresql.org/docs/18/) |
-| PostgreSQL 17 is the database | [/websites/postgresql_17](https://context7.com/websites/postgresql_17) | [PostgreSQL docs](https://www.postgresql.org/docs/17/) |
+| PostgreSQL 18 is the database | [/websites/postgresql/18](https://context7.com/websites/postgresql/18) | [PostgreSQL docs](https://www.postgresql.org/docs/18/) |
+| PostgreSQL 17 is the database | [/websites/postgresql/17](https://context7.com/websites/postgresql/17) | [PostgreSQL docs](https://www.postgresql.org/docs/17/) |
 | RustFS is the S3 service | [/rustfs/rustfs](https://context7.com/rustfs/rustfs) | [Upstream](https://github.com/rustfs/rustfs) |
 
 ## Python (including Django)
@@ -75,6 +75,6 @@ Each ID links to its Context7 entry; the source link identifies the official pro
 
 ## Versions and gaps
 
-Unversioned IDs can index a particular release branch. Include the installed version in each query and verify returned examples against it. Never append guessed versions or choose another library ID automatically. Unmatched tools (including Xcode, other package managers, formatters, and security scanners) use installed help or official documentation; omission is not a claim that Context7 lacks an entry.
+Unversioned IDs can index a particular release branch. Include the installed version in each query and verify returned examples against it. Never append guessed versions. Unmatched tools (including Xcode, other package managers, formatters, and security scanners) use installed help or official documentation; omission is not a claim that Context7 lacks an entry.
 
-When maintaining this catalog, check exact IDs and source identity through [Context7's tools](https://github.com/upstash/context7#available-tools) or public entries before changing rows. Ratings and search rank alone do not establish ownership. Do not generate a new catalog during routine project setup.
+When maintaining this catalog, check exact IDs and source identity through [Context7's tools](https://github.com/upstash/context7#available-tools) or public entries before changing rows. Ratings and search rank alone do not establish ownership. When setup rejects a catalog ID, update or remove its row.

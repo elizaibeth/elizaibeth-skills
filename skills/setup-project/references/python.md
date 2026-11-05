@@ -66,7 +66,11 @@ Ignore only files the project creates. Editor and OS files, such as `.idea/` and
 Prefer the project's existing runner. Configure `[tool.coverage.run]` with `source` set to the import package and `branch = true`. For pytest projects, use `pytest-cov` in an explicit coverage command:
 
 ```sh
-pytest --cov --cov-report=term-missing --cov-report=xml
+pytest --cov --cov-report=term-missing --cov-report=xml --durations=10
 ```
 
 For another runner, use its native coverage integration or `coverage run`/`coverage report`. Document install, locked install, focused tests, full tests, coverage, lint, format, typing, and audit commands through the detected manager and container.
+
+## Mutation testing
+
+When the project has business logic, add mutmut as a development dependency. Document an explicit command scoped to the core modules. Keep it out of pre-commit and the default suite. Check the configuration keys against the installed mutmut version.

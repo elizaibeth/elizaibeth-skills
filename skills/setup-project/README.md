@@ -30,10 +30,10 @@ New Python and Django projects default to **uv**. New frontend projects default 
 
 Every profile applies a three-day release hold: packages must be published at least 72 hours before install. uv, pnpm, and Composer enforce it in configuration. Go and Swift have no native setting, so agents check publication dates by hand and Dependabot gets a cooldown when CI is added.
 
-Setup creates a `.context7lib` allowlist for the project's tools. This guides agent queries when Context7 is available; it does not enforce tool access. See the [documentation policy](references/context7.md).
+Setup creates a `.context7lib` allowlist for the project's tools. It checks each library live with Context7 on every run and keeps only IDs that exist, are rated High, and come from the official project. This guides agent queries when Context7 is available; it does not enforce tool access. See the [documentation policy](references/context7.md).
 
 ## Limits
 
-CI is added only when requested. Setup records a coverage baseline and preserves existing thresholds; it adds a new threshold only when asked. Unavailable checks and empty test suites are reported, not marked as passing.
+CI is added only when requested. Setup verifies once, after all configuration. It records a coverage baseline and preserves existing thresholds; it adds a new threshold only when asked. Unavailable checks and empty test suites are reported, not marked as passing.
 
 Reruns fill gaps without replacing compliant configuration. Setup preserves application behavior, migration history, secrets, signing settings, and your changes. See [the agent instructions](SKILL.md) for the full workflow.

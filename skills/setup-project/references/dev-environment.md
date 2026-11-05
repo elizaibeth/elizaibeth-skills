@@ -33,4 +33,4 @@ When the project needs S3 (an S3 client or storage backend in its dependencies, 
 
 ## Verify
 
-Run `docker compose config --quiet`, then `docker compose up --build --wait`, then the checks and the test tiers from the [test environment](test-environment.md) in the container. Stop the stack afterwards. If Docker is unavailable, report the container setup as unverified.
+The skill's final verification step starts the stack once and runs all checks and test tiers. If Docker is unavailable, report the container setup as unverified.

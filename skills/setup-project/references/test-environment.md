@@ -16,6 +16,8 @@ Separate tests by what they need, using directories or markers. Give each tier i
 
 The test run creates and removes its own data. The suite needs no Docker services or network access, so it stays fast and runs anywhere. Use SQLite for the database. Use an in-process fake or temporary filesystem storage instead of S3. Use fakes or recorded responses for other external services. Exclude the other tiers from the default command.
 
+Scenario tests belong in this suite. They run in-process through the framework's test client or the public interface, not against Docker services.
+
 ## Service tests
 
 Cover behavior that SQLite or a fake does not reproduce. For PostgreSQL, examples are array and range fields, `JSONB` operators, full-text search, `SELECT ... FOR UPDATE`, and constraints SQLite does not enforce. For S3, examples are real uploads, presigned URLs, and bucket policies. Report such dependencies; do not hide them behind SQLite or fakes.
@@ -30,4 +32,4 @@ Run against production-like configuration, never SQLite or fakes.
 
 ## Commands and verification
 
-Document each tier's command. Run the default suite on every change. Run service and end-to-end tests in CI and before merging changes that affect them. During setup, run every configured tier. Report a tier as unverified when its services cannot start, and report an empty tier honestly.
+Document each tier's command. Show the slowest tests in the coverage command, so slow scenarios are visible early. Run the default suite on every change. Run service and end-to-end tests in CI and before merging changes that affect them. During setup, the skill's final verification step runs every configured tier. Report a tier as unverified when its services cannot start, and report an empty tier honestly.
