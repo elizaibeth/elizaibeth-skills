@@ -1,6 +1,6 @@
 # Loopy
 
-Implement GitHub issues with TDD, path coverage, regression tests, code simplification, review, and a commit per iteration.
+Implement GitHub issues with scenario-first TDD and a commit per slice, then coverage, simplification and review once per issue.
 
 ## Install
 
@@ -36,7 +36,7 @@ In Claude Code, the skill adds a Stop hook. While the state file says `status: r
 
 An iteration is one attempt at a slice. The defaults are **4 iterations per issue** and **20 per run**. Set the run limit with `--iterations=N` or "N iterations", and the per-issue limit with `--per-issue=N` or "N per issue". Limits can rise to **8 per issue** and **40 per run**; higher values are clamped to these caps. Limits cannot disable the breaker.
 
-Each slice runs Red → Green → Coverage → Regression → Simplify → Review → Commit. Simplify reruns the regression checks, so Review sees simplified, tested code. Each issue gets a `type/short-topic` branch, and each iteration ends with a commit that references the issue. Each log line shows the review result and commit hash, so a skipped stage is visible.
+Each slice runs Red → Green → Commit, with a scenario test through the public interface. Unit tests are added only for multi-case logic, hard-to-reach error paths, or failures a scenario cannot locate. After an issue's last slice, Loopy runs the broader suite with coverage once, then Simplify and Review on the whole issue diff. This keeps the slow stages to one pass per issue. Each issue gets a `type/short-topic` branch, and each iteration ends with a commit that references the issue. Each log line shows the commit hash, and each closed issue logs its coverage and review result, so a skipped stage is visible.
 
 A slice that must restart from Red or Green consumes another iteration. Fixes that keep the approach do not: formatting, lint, static analysis, a failed commit hook, a flaky rerun, or review findings fixed in place. An expected failing TDD test does not count as a retry. Resuming keeps the counters.
 
