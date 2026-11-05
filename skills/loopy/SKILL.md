@@ -1,6 +1,6 @@
 ---
 name: loopy
-description: Implement a bounded set of GitHub issues through a TDD, coverage, simplify, review and commit loop. Use explicitly when the user asks to work through issues as a controlled implementation loop.
+description: Implement a bounded set of GitHub issues with scenario-first TDD and a commit per slice, then coverage, simplify and review once per issue. Use explicitly when the user asks to work through issues as a controlled implementation loop.
 argument-hint: "<issues...> [--iterations=N] [--per-issue=N] [--merge[=pr|local]]"
 hooks:
   Stop:
@@ -56,21 +56,26 @@ Plan internally, then start: issue order, and vertical slices per issue, each wi
 
 Run each stage's skill in the foreground and wait for its result, including any background agents it starts, before the next stage. Use the fallback only when the skill is absent from the session's skill list (install nothing), and name it in the log line. Skills run inside Loopy's stage order, scope, approvals and breaker.
 
+Run tests with the project's focused command. The default suite never starts backing services: with Docker, start the app container once and use `docker compose exec`, or use `docker compose run --rm --no-deps`.
+
 For each slice:
 
-1. **Red:** `tdd` skill: behavior tests for the happy path plus the relevant invalid, denied, missing or boundary path. Done when they fail for the intended reason. Fallback: write and run them yourself.
-2. **Green:** `tdd` skill: the smallest passing change. Done when the new tests pass and behavior outside the slice is unchanged. Fallback: make the change yourself.
-3. **Coverage:** focused tests plus the project's coverage tool, with its existing thresholds and report format; invent no threshold. Done when both paths are exercised.
-4. **Regression:** focused tests, then the relevant broader suite. Add a regression test for every failure found.
-5. **Simplify:** `simplify` skill on the slice diff, then rerun Regression. Done when its fixes are applied and the checks pass. Fallback: remove duplication, speculative abstractions, dead code and needless branches yourself, keeping the tests meaningful.
-6. **Review:** `code-review` skill with the issue's requirements, the iteration's base commit and the diff. Done when every finding is fixed or recorded for the handoff. Fallback: check the diff against the issue and repository standards yourself.
-7. **Commit:** on the issue branch, per repository conventions, with `Refs #<issue>` in the body. Done when the hooks pass and the working tree is clean.
+1. **Red:** `tdd` skill: one scenario test that drives the slice's behavior through the public interface, such as an HTTP request, a command or a public function. Add a unit test, also red-first, only for pure logic with several input cases, an error path a scenario cannot reach easily, or a failing scenario whose cause is not clear after one attempt. Done when the new tests fail for the intended reason. Fallback: write and run them yourself.
+2. **Green:** `tdd` skill: the smallest passing change. Done when the new tests and the focused tests for the touched area pass. Fallback: make the change yourself.
+3. **Commit:** on the issue branch, per repository conventions, with `Refs #<issue>` in the body. Done when the hooks pass and the working tree is clean.
 
-Keep command evidence for the handoff. After each slice, add a log line per [the reporting guide](references/run-report.md) and start the next slice in the same turn.
+After each slice, add a log line per [the reporting guide](references/run-report.md) and start the next slice in the same turn. Do not simplify or review a single slice.
+
+After the issue's last slice:
+
+4. **Regression and coverage:** the broader suite once, with the project's coverage tool and existing thresholds; invent no threshold. Read branch coverage for the changed files: each uncovered branch in logic code gets a test or a recorded reason. Add a regression test for every failure found.
+5. **Simplify:** `simplify` skill on the issue diff, then rerun the broader suite. Where the diff uses a library, check its idiomatic use for the installed version with Context7, only for IDs in `.context7lib`; send all queries in one batch. Without Context7 or a listed ID, use the official documentation. Prefer the library's own feature over custom code. Fallback: remove duplication, speculative abstractions, dead code and needless branches yourself, keeping the tests meaningful.
+6. **Review:** `code-review` skill with the issue's requirements, the issue's base commit and the issue diff. Done when every finding is fixed or recorded for the handoff. Fallback: check the diff against the issue and repository standards yourself.
+7. **Commit** the fixes as in step 3, and keep command evidence for the handoff.
 
 ## Breaker
 
-An iteration is one attempt at a slice, Red to Commit; charge it before the slice starts. Defaults: **4 per issue** and **20 per run**, set with `--per-issue=N` or "N per issue" and `--iterations=N` or "N iterations". Hard caps: **8** and **40**; clamp higher values and record the clamp. An unlimited request leaves the defaults and caps in force.
+An iteration is one attempt at a slice, Red to Commit, or one pass of an issue's closing stages; charge it before the slice starts. Defaults: **4 per issue** and **20 per run**, set with `--per-issue=N` or "N per issue" and `--iterations=N` or "N iterations". Hard caps: **8** and **40**; clamp higher values and record the clamp. An unlimited request leaves the defaults and caps in force.
 
 Restarting a slice from Red or Green, because the approach failed or a review finding needs a different design, charges another iteration. Fixes that keep the approach are free: formatting, lint, static analysis, a failed commit hook, a flaky rerun, review findings fixed in place, and the expected Red failure. Counters survive resumes and never move between issues.
 
@@ -94,7 +99,7 @@ On resume, a raised limit stays within the hard caps; at a hard cap, end the run
 
 ## Finish
 
-When every issue is complete or blocked, run the full test and quality suites, then the `code-review` skill on the complete diff, and commit fixes as in Commit. An issue is complete only when its acceptance criteria and verification pass.
+When every issue is complete or blocked, run the full test and quality suites and commit fixes as in Commit. Each issue had its own review; do not review the complete diff again. An issue is complete only when its acceptance criteria and verification pass.
 
 After an issue's final review passes, `--merge` or `--merge=pr` pushes its branch and merges it through a pull request, and `--merge=local` merges it into the default branch locally; a method the user names in words takes precedence. Without a merge request, list the unmerged branches in the handoff.
 
