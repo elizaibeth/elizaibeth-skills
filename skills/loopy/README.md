@@ -30,7 +30,7 @@ Each stage runs its skill: `tdd` for Red and Green, `simplify` for Simplify, and
 
 Loopy works through the whole issue set in one go. It keeps the run's state in `loopy-run.md` in the repository's git directory (`git rev-parse --git-dir`, one per worktree): the status, the run's options, counters, issue statuses and a log line per slice. Git does not track this file. The agent reads it every turn, so a run survives context compaction.
 
-In Claude Code, the skill adds a Stop hook. While the state file says `status: running`, the hook sends the agent back to work when it tries to end its turn. The hook does nothing without that file, and after 60 blocks it lets the turn end. To stop a run yourself, press Esc and ask Loopy to stop; it sets `status: stopped` and reports. You can also set `status: stopped` in the file. A new run replaces a leftover state file; a resumed run keeps it. Other agents ignore the hook and follow the same instructions without it.
+In Claude Code, the skill adds a Stop hook. While the state file says `status: running`, the hook sends the agent back to work when it tries to end its turn. The hook does nothing without that file, and after 60 blocks it lets the turn end. A second hook refuses the question tool while the run is running, so a run never waits hours for an answer: the agent records an assumption or marks the issue blocked. Run-level breakers still stop the run and wait for you. To stop a run yourself, press Esc and ask Loopy to stop; it sets `status: stopped` and reports. You can also set `status: stopped` in the file. A new run replaces a leftover state file; a resumed run keeps it. Other agents ignore the hook and follow the same instructions without it.
 
 ## Limits
 

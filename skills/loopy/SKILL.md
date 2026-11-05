@@ -3,6 +3,16 @@ name: loopy
 description: Implement a bounded set of GitHub issues with scenario-first TDD and a commit per slice, then coverage, simplify and review once per issue. Use explicitly when the user asks to work through issues as a controlled implementation loop.
 argument-hint: "<issues...> [--iterations=N] [--per-issue=N] [--merge[=pr|local]]"
 hooks:
+  PreToolUse:
+    - matcher: AskUserQuestion
+      hooks:
+        - type: command
+          command: |
+            d=$(git rev-parse --git-dir 2>/dev/null) || exit 0
+            f="$d/loopy-run.md"
+            [ -f "$f" ] || exit 0
+            [ "$(sed -n 's/^status: *//p' "$f")" = running ] || exit 0
+            printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"The Loopy run is still running (%s). Do not ask the user. Take the simplest option closest to the existing code and record it as an assumption, or mark the issue blocked and continue with the next one. For a run-level breaker, set the status to breaker first."}}' "$f"
   Stop:
     - hooks:
         - type: command
@@ -41,7 +51,7 @@ log:
 ```
 
 - `options`: the issue list and every flag or phrase that sets limits or merging. Follow it, not memory.
-- `status`: `running`, `done`, `breaker`, `cap` or `stopped`. While it is `running`, a Claude Code Stop hook sends you back to work when you end the turn, until `stop_blocks` reaches 60.
+- `status`: `running`, `done`, `breaker`, `cap` or `stopped`. While it is `running`, a Claude Code Stop hook sends you back to work when you end the turn, until `stop_blocks` reaches 60, and a PreToolUse hook refuses `AskUserQuestion`. Record an assumption or mark the issue blocked instead of asking.
 - `issues`: each issue's status, counter, recorded assumptions and blocked reason.
 - When the user asks to stop, pause or cancel, set `status: stopped`, give the breaker report and end the turn.
 - A new run (issue set differs from `options`, or resume intent unclear) replaces the file. A resumed run keeps it and its counters, sets `status: running` and resets `stop_blocks` to 0.
