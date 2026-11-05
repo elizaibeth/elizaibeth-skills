@@ -29,6 +29,6 @@ Keep `minimumReleaseAgeExclude` absent or empty by default. Report existing exce
 
 Use `pnpm add` / `pnpm add -D` for dependencies and `pnpm run <script>` for project checks. Use `pnpm install --frozen-lockfile` in CI; setup may run `pnpm install` to create or intentionally update the lockfile.
 
-Reuse framework tooling and existing scripts for formatting, linting, type checks, tests, coverage, and production builds. Add only missing checks relevant to the project. Run tests in non-watch mode and collect coverage with the chosen runner. Keep audits (`pnpm audit`) explicit and ignore dependencies and build output.
+Reuse framework tooling and existing scripts for formatting, linting, type checks, tests, coverage, and production builds. Add only missing checks relevant to the project. Run tests in non-watch mode and collect coverage with the chosen runner. Keep audits (`pnpm audit`) explicit and ignore dependencies and build output. When the project has business logic, document an explicit Stryker command scoped to the core modules. Keep it out of hooks and required CI checks.
 
 Verify the effective release-age settings and locked install before reporting success. Report unavailable checks and enforcement gaps separately from passing checks.
