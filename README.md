@@ -10,6 +10,7 @@ Reusable AI agent skills for project setup, development, review, and clear techn
 | [stress-test](skills/stress-test/SKILL.md) | Ruthlessly critique ideas, plans, reports, or code. |
 | [big-backend](skills/big-backend/SKILL.md) | Build Laravel 13 CRUD backends from a database, specification, or system-design conversation. |
 | [setup-project](skills/setup-project/SKILL.md) | Apply contribution conventions and set up language-specific tooling, tests, coverage, hooks, a three-day package release hold, a production container, and CI. |
+| [understand-codebase](skills/understand-codebase/SKILL.md) | Explain a codebase as an evidence-backed slide deck: architecture, traced flows, patterns, trade-offs, bottlenecks and pain points. |
 | [loopy](skills/loopy/SKILL.md) | Implement GitHub issues with TDD, coverage, regression checks, simplification, review, a commit per iteration, and bounded iterations. |
 
 ## Installation
@@ -22,6 +23,7 @@ npx skills add elizaibeth/elizaibeth-skills --skill stress-test --global
 npx skills add elizaibeth/elizaibeth-skills --skill big-backend --global
 npx skills add elizaibeth/elizaibeth-skills --skill setup-project --global
 npx skills add elizaibeth/elizaibeth-skills --skill loopy --global
+npx skills add elizaibeth/elizaibeth-skills --skill understand-codebase --global
 ```
 
 Use `--skill '*'` to install all skills in one command. Omit `--global` for a project-local installation. To install from a local checkout, replace `elizaibeth/elizaibeth-skills` with `.`.
@@ -54,6 +56,14 @@ See the [usage guide](skills/setup-project/README.md) for supported stacks, defa
 
 `--iterations` sets the run limit and `--per-issue` sets the limit for each issue. See the [usage guide](skills/loopy/README.md) for the implementation loop, defaults, and caps.
 
+### Understand Codebase
+
+> Use $understand-codebase on this repository.
+
+> Use $understand-codebase --for=review "how does a booking get confirmed?"
+
+The default `--for=present` builds a deck you present to an audience; `--for=review` builds one for learning and judging the code. See the [usage guide](skills/understand-codebase/README.md).
+
 ### Big Backend
 
 See the [usage guide](skills/big-backend/README.md) for database, specification, design, and review examples.
@@ -78,6 +88,8 @@ Use Node.js 22 or newer:
 npm ci
 npm run check
 ```
+
+`npm run check` validates every skill and runs the Python scenario tests in `tests/` (Python 3.11 or newer).
 
 Each skill lives in `skills/<skill-name>/`, with instructions in `SKILL.md` and supporting files alongside it. Add new skills to the table above.
 

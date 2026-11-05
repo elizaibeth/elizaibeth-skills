@@ -1,0 +1,6 @@
+interface:
+  display_name: "Understand Codebase"
+  short_description: "Explain a codebase as an evidence-backed slide deck"
+  default_prompt: "Use $understand-codebase to explain this repository as a slide deck."
+policy:
+  allow_implicit_invocation: true
